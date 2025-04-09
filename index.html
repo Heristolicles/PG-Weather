@@ -9,69 +9,87 @@
         body { 
             font-family: sans-serif; 
             padding: 20px; 
-            background-color: #f4f4f4; /* Slightly off-white background */
+            background-color: #f4f4f4; 
         }
-        h1, h2 { 
+        h1 {
+            text-align: center; 
+            margin-bottom: 30px;
+        }
+        h2 { 
             color: #333; 
-            border-bottom: 1px solid #ccc; /* Add line below headings */
+            border-bottom: 1px solid #ccc; 
             padding-bottom: 5px;
+            margin-bottom: 15px;
         }
         .weather-section { 
             margin-bottom: 30px; 
-            border: 1px solid #ddd; /* Lighter border */
-            padding: 20px; /* More padding */
-            border-radius: 8px; /* More rounded corners */
-            background-color: #fff; /* White background for sections */
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+            border: 1px solid #ddd; 
+            padding: 20px; 
+            border-radius: 8px; 
+            background-color: #fff; 
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1); 
         }
         a { 
-            color: #0056b3; /* Darker blue for links */
+            color: #0056b3; 
             text-decoration: none; 
         }
         a:hover { 
             text-decoration: underline; 
-            color: #003d80; /* Darker hover */
+            color: #003d80; 
         }
         
-        /* --- Grid Layout for Weather Data Section --- */
-        /* We target the specific section containing the data embeds */
+        /* --- Grid Layout & Custom Properties --- */
         .data-grid {
             display: grid;
-            /* Create two equal-width columns */
             grid-template-columns: 1fr 1fr; 
-             /* Adjust grid-template-columns if you have more items or want different widths, e.g., 1fr 1fr 1fr for 3 cols */
-            gap: 20px; /* Space between grid items */
+            --grid-gap: 20px; 
+            --unit-height: 190px; /* Base height reference */
+            gap: var(--grid-gap); 
+            grid-auto-flow: dense; 
         }
 
-        /* --- Sizing for embedded content inside the data grid --- */
+        /* --- BASE Styling for ALL grid items --- */
         .data-grid img,
-        .data-grid iframe {
-            display: block;   /* Ensure they behave as blocks */
-            width: 100%;      /* Make item fill its grid column width */
-            height: 400px;    /* SET YOUR DESIRED FIXED HEIGHT HERE */
-            border: 1px solid #ccc; /* Consistent border for all items */
-            border-radius: 5px; /* Slightly rounded corners for embeds */
+        .data-grid iframe,
+        .data-grid .crop-box { 
+            display: block;   
+            width: 100%;      
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            background-color: #f0f0f0; 
+            /* NO height property here */
         }
-
-        /* --- Image specific adjustments --- */
-        .data-grid img {
-            object-fit: cover; /* Fills space, crops if needed. Try 'contain' to fit whole image */
+        .data-grid img { 
+            object-fit: contain; 
         }
+        
+        /* --- Modular Height Helper Classes --- */
+        .h-standard {
+            height: calc(var(--unit-height) * 2 + var(--grid-gap)); /* e.g., 400px */
+        }
+        .h-tall {
+            height: calc((var(--unit-height) * 2 + var(--grid-gap)) * 2 + var(--grid-gap)); /* e.g., 820px */
+            grid-row: span 2; 
+        }
+        /* .h-short { height: var(--unit-height); } */
 
-         /* --- Iframe specific adjustments --- */
-         .data-grid iframe {
-             /* The height attribute is now controlled by the CSS above */
-             /* Removed the default iframe style block as it's handled now */
-         }
+        /* --- Reusable CSS Cropping Box --- */
+        .crop-box {
+            /* Use inline custom properties for image source and positioning */
+            background-image: var(--crop-url);
+            background-position: 0 var(--crop-offset-y); 
+            /* Height is now determined by adding h-standard/h-tall class */
+
+            /* Common styles */
+            width: 100%;
+            background-repeat: no-repeat;
+            background-size: 100% auto; 
+            display: block; 
+        }
 
         /* --- General List Styling --- */
-        ul {
-            list-style: none; /* Remove default bullets */
-            padding-left: 0;
-        }
-        li {
-            margin-bottom: 8px; /* Space between list items */
-        }
+        ul { list-style: none; padding-left: 0; }
+        li { margin-bottom: 8px; }
 
     </style>
 </head>
@@ -79,42 +97,55 @@
 
     <h1>My Paragliding Weather Hub</h1>
 
-    <!-- This section remains a single column -->
+    <!-- Weatherforecast sites section -->
     <div class="weather-section">
         <h2>Weatherforecast sites</h2>
         <p>The most important interactive websites.</p>
         <ul>
-            <li><a href="https://www.burnair.cloud/?layers=lz%2Cto%2Clp%2Cpz%2Cfp%2Cna%2Cle%2Cca%2Cvw%2Ccc%2Ctt%2Cpt%2Ctl%2Ctp%2Cpp%2Cmp%2Cw-ch-jb%2Cw-ch-wp%2Cw-ch-uw%2Cw-ch-wr%2Cmw%2Ctodhv%2Clzp%2Cpft%2Cpw250&visibility=off%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Cauto%2Cauto#10/47.2046/11.3750" target="_blank">Burnair</a></li>
-            <li><a href="https://www.windy.com/47.265/11.393/iconD2/meteogram?iconD2,47.202,11.379,10,i:pressure,p:pgspots" target="_blank">Windy</a></li>
-            <li><a href="https://www.austrocontrol.at/flugwetter/index.php?id=501&lang=de" target="_blank">Austro Control</a></li>
-            <li><a href="https://www.meteoblue.com/en/weather/history/archive/weekly/meteogram?lat=47.2046&lon=11.3750&name=Innsbruck" target="_blank">Meteoblue</a></li>
-        </ul>
+             <li><a href="https://www.burnair.cloud/?..." target="_blank">Burnair</a></li>
+            <li><a href="https://www.windy.com/..." target="_blank">Windy</a></li>
+            <li><a href="https://www.austrocontrol.at/..." target="_blank">Austro Control</a></li>
+            <li><a href="https://www.meteoblue.com/..." target="_blank">Meteoblue</a></li>
+            <li><a href="https://wetter.provinz.bz.it/foehndiagramm.asp" target="_blank">Südtirol Foehn Diagram (Forecast)</a></li>
+            <li><a href="https://www.geosphere.at/de/karten/aktuelles-wetter#tab=tablemode" target="_blank">Geosphere Station Data (Check INN Pressure Manually)</a></li>
+       </ul>
     </div>
 
-    <!-- Added 'data-grid' class HERE to apply the grid layout -->
-    <div class="weather-section data-grid"> 
+    <!-- Weather data section -->
+    <div class="weather-section"> 
         <h2>Weather data</h2> 
-        <!-- The h2 will span across columns by default, or we could move it -->
-        <!-- Grid items below will be arranged in columns -->
-        
-        <img src="https://profiwetter.ch/wind_foehn_at_de.png" 
-             alt="Profiwetter Wind and Foehn Chart for Austria/Germany">
-        
-        <img src="https://wetterstationen.meteomedia.at/messnetz/vorhersagegrafik/111260.png" 
-             alt="Meteomedia forecast graphic showing temperature, precipitation, wind for station 111260"> 
-        
-        <iframe 
-            src="https://webtv.feratel.com/webtv/?design=v5&cam=5645&c27=1&c19=0" 
-            allowfullscreen 
-            title="Feratel Webcam Feed"> <!-- Added title attribute for accessibility -->
-        </iframe> 
+        <div class="data-grid"> 
             
-        <!-- Add more images or iframes here and they will wrap into the grid -->
-            
-        <!-- Removed the commented out iframe placeholder and <p> tag -->
-    </div>
+            <img src="https://profiwetter.ch/wind_foehn_at_de.png" 
+                 alt="Profiwetter Wind and Foehn Chart for Austria/Germany"     
+                 class="h-standard"> 
+                 
+            <!-- WISKI image using crop-box and h-standard height -->
+            <div class="crop-box h-standard" 
+                 style="--crop-url: url('https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/patscherkofel.png');
+                        --crop-offset-y: -100px;"
+                 role="img" 
+                 aria-label="WISKI Tirol Patscherkofel Wind Speed and Direction Chart">
+            </div>
 
-    <!-- This section remains a single column -->
+            <img src="https://wetterstationen.meteomedia.at/messnetz/vorhersagegrafik/111260.png" 
+                 alt="Meteomedia forecast graphic" 
+                 class="h-standard"> 
+
+            <iframe 
+                src="https://webtv.feratel.com/webtv/?design=v5&cam=5645&c27=1&c19=0" 
+                allowfullscreen 
+                title="Feratel Webcam Feed"
+                class="h-standard"> 
+            </iframe> 
+
+            
+                 
+        </div> <!-- End of the data-grid div -->
+    </div> <!-- End of the weather-section div -->
+
+
+    <!-- Other Resources section -->
     <div class="weather-section">
         <h2>Other Resources</h2>
         <ul>
@@ -125,7 +156,7 @@
     </div>
 
     <hr>
-    <p><small>Page last updated: 09.04.2025</small></p> <!-- Note: This date seems far in the future! -->
+    <p><small>Page last updated: [Update Date]</small></p> 
 
 </body>
 </html>
