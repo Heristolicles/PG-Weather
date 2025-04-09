@@ -5,19 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paragliding Weather Hub</title>
     <style>
-        /* Optional: Add some basic styling later */
-        body { font-family: sans-serif; padding: 20px; }
-        h1, h2 { color: #333; }
-        .weather-section { margin-bottom: 30px; border: 1px solid #eee; padding: 15px; border-radius: 5px; }
-        a { color: #007bff; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        iframe { border: 1px solid #ccc; margin-top: 10px;} /* Style for embeds */
+        /* Basic Styling */
+        body { 
+            font-family: sans-serif; 
+            padding: 20px; 
+            background-color: #f4f4f4; /* Slightly off-white background */
+        }
+        h1, h2 { 
+            color: #333; 
+            border-bottom: 1px solid #ccc; /* Add line below headings */
+            padding-bottom: 5px;
+        }
+        .weather-section { 
+            margin-bottom: 30px; 
+            border: 1px solid #ddd; /* Lighter border */
+            padding: 20px; /* More padding */
+            border-radius: 8px; /* More rounded corners */
+            background-color: #fff; /* White background for sections */
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+        }
+        a { 
+            color: #0056b3; /* Darker blue for links */
+            text-decoration: none; 
+        }
+        a:hover { 
+            text-decoration: underline; 
+            color: #003d80; /* Darker hover */
+        }
+        
+        /* --- Grid Layout for Weather Data Section --- */
+        /* We target the specific section containing the data embeds */
+        .data-grid {
+            display: grid;
+            /* Create two equal-width columns */
+            grid-template-columns: 1fr 1fr; 
+             /* Adjust grid-template-columns if you have more items or want different widths, e.g., 1fr 1fr 1fr for 3 cols */
+            gap: 20px; /* Space between grid items */
+        }
+
+        /* --- Sizing for embedded content inside the data grid --- */
+        .data-grid img,
+        .data-grid iframe {
+            display: block;   /* Ensure they behave as blocks */
+            width: 100%;      /* Make item fill its grid column width */
+            height: 400px;    /* SET YOUR DESIRED FIXED HEIGHT HERE */
+            border: 1px solid #ccc; /* Consistent border for all items */
+            border-radius: 5px; /* Slightly rounded corners for embeds */
+        }
+
+        /* --- Image specific adjustments --- */
+        .data-grid img {
+            object-fit: cover; /* Fills space, crops if needed. Try 'contain' to fit whole image */
+        }
+
+         /* --- Iframe specific adjustments --- */
+         .data-grid iframe {
+             /* The height attribute is now controlled by the CSS above */
+             /* Removed the default iframe style block as it's handled now */
+         }
+
+        /* --- General List Styling --- */
+        ul {
+            list-style: none; /* Remove default bullets */
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 8px; /* Space between list items */
+        }
+
     </style>
 </head>
 <body>
 
     <h1>My Paragliding Weather Hub</h1>
 
+    <!-- This section remains a single column -->
     <div class="weather-section">
         <h2>Weatherforecast sites</h2>
         <p>The most important interactive websites.</p>
@@ -29,21 +91,30 @@
         </ul>
     </div>
 
-    <div class="weather-section">
-        <h2>Weather data</h2>
+    <!-- Added 'data-grid' class HERE to apply the grid layout -->
+    <div class="weather-section data-grid"> 
+        <h2>Weather data</h2> 
+        <!-- The h2 will span across columns by default, or we could move it -->
+        <!-- Grid items below will be arranged in columns -->
+        
         <img src="https://profiwetter.ch/wind_foehn_at_de.png" 
              alt="Profiwetter Wind and Foehn Chart for Austria/Germany">
+        
+        <img src="https://wetterstationen.meteomedia.at/messnetz/vorhersagegrafik/111260.png" 
+             alt="Meteomedia forecast graphic showing temperature, precipitation, wind for station 111260"> 
+        
         <iframe 
             src="https://webtv.feratel.com/webtv/?design=v5&cam=5645&c27=1&c19=0" 
-            class="responsive-iframe" 
-            allowfullscreen>
-        <!-- Example: Replace with actual embed code from a site like Windy -->
-        <!-- Look for "Embed widget" or similar share options on the weather sites -->
-        <!-- <iframe width="650" height="450" src="URL_PROVIDED_BY_WEATHER_SITE_FOR_EMBEDDING" frameborder="0"></iframe> -->
-        <p>(Add embed codes here if available)</p>
-
+            allowfullscreen 
+            title="Feratel Webcam Feed"> <!-- Added title attribute for accessibility -->
+        </iframe> 
+            
+        <!-- Add more images or iframes here and they will wrap into the grid -->
+            
+        <!-- Removed the commented out iframe placeholder and <p> tag -->
     </div>
 
+    <!-- This section remains a single column -->
     <div class="weather-section">
         <h2>Other Resources</h2>
         <ul>
@@ -54,7 +125,7 @@
     </div>
 
     <hr>
-    <p><small>Page last updated: 09.04.2025</small></p>
+    <p><small>Page last updated: 09.04.2025</small></p> <!-- Note: This date seems far in the future! -->
 
 </body>
 </html>
