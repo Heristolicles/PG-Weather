@@ -41,7 +41,7 @@
         /* --- Grid Layout & Custom Properties --- */
         .data-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Default: 2 columns */
+            grid-template-columns: 1fr 1fr; 
             --grid-gap: 20px; 
             --unit-height: 190px; /* Base height reference */
             gap: var(--grid-gap); 
@@ -57,7 +57,7 @@
             border: 1px solid #ccc; 
             border-radius: 5px; 
             background-color: #f0f0f0; 
-            /* NO height property here - set by classes */
+            /* NO height property here */
         }
         .data-grid img { 
             object-fit: contain; 
@@ -76,10 +76,10 @@
         /* --- Reusable CSS Cropping Box --- */
         .crop-box {
             background-image: var(--crop-url);
-            background-position: 0 var(--crop-offset-y); 
+            background-position: 0 var(--crop-offset-y); /* Default offset from inline style */
             width: 100%;
             background-repeat: no-repeat;
-            background-size: 100% auto; 
+            background-size: 100% auto; /* Scale based on width */
             display: block; 
             /* Height set by h-standard/h-tall class */
         }
@@ -97,24 +97,24 @@
 
             /* Reset row spanning for tall items in single column */
             .data-grid .h-tall {
-                grid-row: auto; /* Let it occupy default row space */
-                height: auto; /* Override fixed height */
-                aspect-ratio: 16 / 9; /* Sensible ratio for iframes/tall content */
+                grid-row: auto; 
+                height: auto; 
+                aspect-ratio: 16 / 9; 
             }
 
             /* Adjust standard height items for mobile */
             .data-grid .h-standard {
-                 height: auto; /* Override fixed height */
-                 aspect-ratio: 4 / 3; /* Sensible ratio for charts/images */
+                 height: auto; 
+                 aspect-ratio: 4 / 3; 
              }
              
-            /* Override height for the cropped box specifically for mobile */
+            /* Override height AND background position for the cropped box on mobile */
             .data-grid .crop-box {
-                 /* NOTE: This needs a height because it's a background */
-                 /* Using aspect-ratio here might clip differently than desired */
-                 height: 300px; /* Example: fixed height for cropped box on mobile */
-                 /* Also reset row span if it happened to have h-tall */
-                 grid-row: auto; 
+                 height: 300px; /* Keep fixed mobile height */
+                 grid-row: auto; /* Reset span if it had h-tall */
+                 
+                 /* Adjust vertical offset for mobile's scaled image */
+                 background-position: 0 -40px; /* TRY THIS VALUE (adjust if needed) */
              }
         }
 
@@ -145,31 +145,30 @@
             
             <img src="https://profiwetter.ch/wind_foehn_at_de.png" 
                  alt="Profiwetter Wind and Foehn Chart for Austria/Germany"     
-                 class="h-standard"> <!-- Standard height -->
+                 class="h-standard"> 
                  
-            <!-- WISKI image using reusable crop-box -->
-            <!-- IMPORTANT: Assign h-standard or h-tall ALSO to crop-box for desktop height -->
-            <div class="crop-box h-standard"  
+            <!-- WISKI image using crop-box and h-standard height -->
+            <div class="crop-box h-standard" 
                  style="--crop-url: url('https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/patscherkofel.png');
-                        --crop-offset-y: -100px;" 
+                        --crop-offset-y: -100px;" /* This offset is mainly for desktop */
                  role="img" 
                  aria-label="WISKI Tirol Patscherkofel Wind Speed and Direction Chart">
             </div>
 
             <img src="https://wetterstationen.meteomedia.at/messnetz/vorhersagegrafik/111260.png" 
                  alt="Meteomedia forecast graphic" 
-                 class="h-standard"> <!-- Standard height -->
+                 class="h-standard"> 
 
             <iframe 
                 src="https://webtv.feratel.com/webtv/?design=v5&cam=5645&c27=1&c19=0" 
                 allowfullscreen 
                 title="Feratel Webcam Feed"
-                class="h-tall"> <!-- Tall height -->
+                class="h-tall"> 
             </iframe> 
 
             <img src="https://static.provinz.bz.it/wetter/foehndiagramm/foehn.png" 
                  alt="Südtirol Wetter Foehndiagramm (Forecast)"
-                 class="h-standard"> <!-- Standard height -->
+                 class="h-standard"> 
                  
         </div> <!-- End of the data-grid div -->
     </div> <!-- End of the weather-section div -->
