@@ -157,7 +157,7 @@
 
             <!-- **** Item 1: Profiwetter **** -->
             <div class="grid-item-container h-standard"> <!-- Height class on container -->
-                <h4 class="item-title">Foehn Diagram (Profiwetter)</h4> <!-- Title -->
+                <h4 class="item-title">Föhn Diagram (Profiwetter)</h4> <!-- Title -->
                 <div class="item-content"> <!-- Content wrapper -->
                     <img src="https://profiwetter.ch/wind_foehn_at_de.png"
                          alt="Profiwetter Wind and Foehn Chart for Austria/Germany">
@@ -166,7 +166,7 @@
 
             <!-- **** Item 2: WISKI Crop **** -->
             <div class="grid-item-container h-standard"> <!-- Height class on container -->
-                 <h4 class="item-title">Patscherkofel Station (WISKI - Cropped)</h4> <!-- Title -->
+                 <h4 class="item-title">Patscherkofel Wind Measurements</h4> <!-- Title -->
                  <div class="item-content"> <!-- Content wrapper -->
                      <div class="crop-box" 
                           style="--crop-url: url('https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/patscherkofel.png');
@@ -184,6 +184,42 @@
                      <img src="https://wetterstationen.meteomedia.at/messnetz/vorhersagegrafik/111260.png"
                           alt="Meteomedia forecast graphic">
                  </div>
+            </div>
+
+            <!-- **** Item 4: Windy Regenradar **** -->
+            <div class="grid-item-container h-standard"> <!-- Height class on container -->
+                <h4 class="item-title">Rain Radar</h4> <!-- Title -->
+                <div class="item-content"> <!-- Content wrapper -->
+                    <iframe width="650" 
+                    height="450" 
+                    src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=8&overlay=radar&product=radar&level=surface&lat=47.234&lon=11.398&message=true" 
+                    frameborder="0">
+                    </iframe>
+                </div>
+            </div>
+
+           <!-- **** Item 5: Windy Windvorhersage **** -->
+            <div class="grid-item-container h-standard"> <!-- Height class on container -->
+                <h4 class="item-title">Wind Forecast 2000m</h4> <!-- Title -->
+                <div class="item-content"> <!-- Content wrapper -->
+                    <iframe width="650" 
+                    height="450" 
+                    src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=km/h&zoom=9&overlay=wind&product=ecmwf&level=800h&lat=47.227&lon=11.382&detailLat=47.260592193424706&detailLon=11.392822265625&marker=true" frameborder="0" 
+                    frameborder="0">
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- **** Item 6: Windy Regenvorhersage **** -->
+            <div class="grid-item-container h-standard"> <!-- Height class on container -->
+                <h4 class="item-title">Rain Forecast</h4> <!-- Title -->
+                <div class="item-content"> <!-- Content wrapper -->
+                    <iframe width="650" 
+                    height="450" 
+                    src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=8&overlay=rain&product=iconD2&level=surface&lat=47.276&lon=11.376&detailLat=47.27550216573706&detailLon=11.3763427734375&marker=true" 
+                    frameborder="0">
+                    </iframe>
+                </div>
             </div>
 
         </div> <!-- End of the Weather data grid div -->
