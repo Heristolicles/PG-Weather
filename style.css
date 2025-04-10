@@ -97,5 +97,13 @@ li { margin-bottom: 8px; }
     .tab-button { display: inline-block; margin-bottom: -1px; }
 
     /* Stacked iframes on mobile */
-    .iframe-stack iframe { aspect-ratio: unset; /* Use flex sizing */ }
+    .iframe-stack {
+        height: auto; /* Override the default height: 100% */
+    }
+    .iframe-stack iframe {
+        height: auto; /* Allow height to be determined by aspect ratio */
+        aspect-ratio: 58 / 25; /* Give stacked Holfuy iframes an aspect ratio on mobile */
+        flex-grow: 1; /* Allow flex items to grow if needed, though aspect-ratio should dominate */
+        flex-basis: auto; /* Let basis be determined by content/aspect-ratio */
+    }
 } /* End of @media query */
