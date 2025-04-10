@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paragliding Weather Hub</title>
     <style>
-        /* Basic Styling (keep as is) */
+        /* Basic Styling */
         body { font-family: sans-serif; padding: 20px; background-color: #f4f4f4; }
         h1 { text-align: center; margin-bottom: 30px; }
         h2 { color: #333; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px; margin-top: 0; }
         .weather-section { margin-bottom: 30px; border: 1px solid #ddd; padding: 15px; border-radius: 8px; background-color: #fff; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
         a { color: #0056b3; text-decoration: none; }
         a:hover { text-decoration: underline; color: #003d80; }
-        ul { list-style: none; padding-left: 0; }
+        ul { list-style: none; padding-left: 0; margin-top: 5px; /* Adjust ul spacing */}
         li { margin-bottom: 8px; }
 
         /* --- Grid Layout & Custom Properties (Desktop) --- */
+        /* Applies INSIDE tab-content now */
         .data-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -23,6 +24,7 @@
             --unit-height: 190px; /* Base height reference */
             gap: var(--grid-gap);
             grid-auto-flow: dense;
+            margin-top: 15px; /* Add space between tabs and grid */
         }
 
         /* --- Modular Height Helper Classes (Desktop) --- */
@@ -35,15 +37,14 @@
             grid-row: span 2;
         }
 
-        /* --- Container for Grid Items with Titles (Desktop) --- */
+        /* --- Container for Grid Items with Titles --- */
         .grid-item-container {
             display: flex;
-            flex-direction: column; /* Stack title above content */
+            flex-direction: column;
             border: 1px solid #ccc;
             border-radius: 5px;
             background-color: #f8f8f8;
-            overflow: hidden; /* Contain content */
-            /* Fixed Height applied via h-standard/h-tall on desktop */
+            overflow: hidden;
         }
 
         .grid-item-container .item-title {
@@ -59,17 +60,17 @@
         }
 
         .grid-item-container .item-content {
-            flex-grow: 1; /* Allow content to fill remaining space */
-            min-height: 0; /* Flexbox fix for overflow */
-            padding: 5px; /* Optional padding around content */
+            flex-grow: 1;
+            min-height: 0;
+            padding: 5px;
             background-color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* Hide overflow from content */
+            overflow: hidden;
         }
 
-        /* --- Base Styling for Content WITHIN Container (Desktop) --- */
+        /* --- Base Styling for Content WITHIN Container --- */
         .grid-item-container img,
         .grid-item-container iframe,
         .grid-item-container .crop-box,
@@ -81,14 +82,10 @@
             border-radius: 0;
             background-color: transparent;
         }
-        .grid-item-container img {
-            object-fit: contain; /* Fit image within the space */
-        }
-         .grid-item-container a img {
-              display: block;
-         }
+        .grid-item-container img { object-fit: contain; }
+        .grid-item-container a img { display: block; }
 
-        /* --- Cropping Box (Desktop) --- */
+        /* --- Cropping Box --- */
         .crop-box {
             background-image: var(--crop-url);
             background-position: 0 var(--crop-offset-y);
@@ -99,58 +96,75 @@
             display: block;
         }
 
+        /* --- **** NEW: Tab Styling **** --- */
+        .tab-buttons {
+            border-bottom: 2px solid #ccc;
+            margin-bottom: 0; /* Reset margin if needed */
+            padding-left: 0; /* Align with section padding */
+        }
+        .tab-button {
+            padding: 8px 15px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0; /* Rounded top corners */
+            background-color: #f1f1f1;
+            margin-right: 3px;
+            margin-bottom: -2px; /* Overlap border-bottom */
+            font-size: 0.9em;
+            position: relative; /* For z-index */
+            bottom: -1px; /* Align with bottom border */
+        }
+        .tab-button:hover {
+            background-color: #ddd;
+        }
+        .tab-button.active {
+            background-color: #fff;
+            border-color: #ccc #ccc transparent #ccc; /* Border on 3 sides */
+            font-weight: bold;
+            z-index: 1; /* Bring active tab border above container border */
+        }
+        .tab-content {
+            display: none; /* Hide content by default */
+            padding-top: 15px; /* Space below the tabs */
+            border-top: 1px solid transparent; /* Prevent content jump */
+        }
+        .tab-content.active {
+            display: block; /* Show active content */
+        }
+        /* --- **** End Tab Styling **** --- */
 
-        /* --- ======================================== --- */
-        /* ---         Mobile Responsiveness          --- */
-        /* --- ======================================== --- */
+
+        /* --- Mobile Responsiveness --- */
         @media (max-width: 768px) {
             .data-grid {
-                /* Switch to a single column */
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* Single column grid on mobile */
             }
+            .data-grid .h-tall { grid-row: auto; }
 
-            /* Reset row spanning */
-            .data-grid .h-tall {
-                 grid-row: auto;
-             }
-
-            /* --- Container Sizing on Mobile --- */
-            /* Let ALL containers auto-adjust height based on content */
+            /* Container Sizing on Mobile */
             .data-grid .grid-item-container.h-standard,
             .data-grid .grid-item-container.h-tall {
                  height: auto;
-                 aspect-ratio: unset; /* Remove any fixed aspect ratios from container */
+                 aspect-ratio: unset;
             }
 
-            /* --- Content Sizing on Mobile --- */
-            /* Images: will use object-fit: contain within the auto-height container */
-            .grid-item-container img {
-                /* No change needed - object-fit: contain still applies */
-                /* Container height: auto will prevent letterboxing */
-                max-width: 100%; /* Ensure image doesn't overflow container */
-            }
+            /* Content Sizing on Mobile */
+            .grid-item-container img { max-width: 100%; }
+            .grid-item-container iframe[src*="windy.com"] { width: 100%; height: auto; aspect-ratio: 1/1; }
+            .grid-item-container iframe[src*="feratel.com"] { width: 100%; height: auto; aspect-ratio: 16/9; }
+            .grid-item-container .crop-box { width: 100%; height: auto; aspect-ratio: 3/2; background-position: 0 0; }
 
-            /* Windy Iframes: Apply TALLER aspect ratio directly */
-            .grid-item-container iframe[src*="windy.com"] {
-                width: 100%;
-                height: auto; /* Let aspect ratio determine height */
-                aspect-ratio: 1/1; /* Make it square (taller than 16:9) - Adjust if needed */
-            }
-
-             /* Feratel/Other Iframes: Apply standard video ratio directly */
-            .grid-item-container iframe[src*="feratel.com"] {
-                 width: 100%;
-                 height: auto; /* Let aspect ratio determine height */
-                 aspect-ratio: 16/9; /* Standard video ratio */
+            /* Tab buttons might wrap on mobile, add scroll or adjust */
+            .tab-buttons {
+                 white-space: nowrap; /* Prevent wrapping */
+                 overflow-x: auto; /* Allow horizontal scrolling if needed */
+                 margin-bottom: -1px; /* Align with border */
              }
-
-            /* Crop Box Content: Apply aspect ratio directly, adjust position */
-            .grid-item-container .crop-box {
-                  width: 100%;
-                  height: auto; /* Let aspect ratio determine height */
-                  aspect-ratio: 3/2; /* Example aspect ratio, adjust as needed */
-                  background-position: 0 0; /* Show top of image */
-             }
+             .tab-button {
+                  display: inline-block; /* Needed for nowrap */
+                  margin-bottom: -1px;
+              }
         } /* End of @media query */
 
     </style>
@@ -170,114 +184,168 @@
        </ul>
     </div>
 
-    <!-- Weather data section -->
+    <!-- Weather data section WITH TABS -->
     <div class="weather-section">
         <h2>Weather data</h2>
-        <div class="data-grid">
 
-            <!-- **** Item 1: Profiwetter **** -->
-            <div class="grid-item-container h-standard">
-                <h4 class="item-title">Föhn Diagram (Profiwetter)</h4>
-                <div class="item-content">
-                    <img src="https://profiwetter.ch/wind_foehn_at_de.png"
-                         alt="Profiwetter Wind and Foehn Chart for Austria/Germany">
-                </div>
+        <!-- Tab Buttons -->
+        <div class="tab-buttons">
+            <button class="tab-button active" data-tab="main">Main</button>
+            <button class="tab-button" data-tab="north-alps">Northern Alps</button>
+            <button class="tab-button" data-tab="allgaeu">Allgäu</button>
+        </div>
+
+        <!-- Tab Content Panels -->
+        <div class="tab-content-container">
+
+            <!-- Main Tab Content (Existing Grid) -->
+            <div id="main" class="tab-content active">
+                <div class="data-grid">
+                    <!-- **** Item 1: Profiwetter **** -->
+                    <div class="grid-item-container h-standard">
+                        <h4 class="item-title">Föhn Diagram (Profiwetter)</h4>
+                        <div class="item-content">
+                            <img src="https://profiwetter.ch/wind_foehn_at_de.png" alt="Profiwetter Wind and Foehn Chart for Austria/Germany">
+                        </div>
+                    </div>
+                    <!-- **** Item 2: WISKI Crop **** -->
+                    <div class="grid-item-container h-standard">
+                         <h4 class="item-title">Patscherkofel Wind Measurements</h4>
+                         <div class="item-content">
+                             <div class="crop-box" style="--crop-url: url('https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/patscherkofel.png'); --crop-offset-y: -100px;" role="img" aria-label="WISKI Tirol Patscherkofel Wind Speed and Direction Chart"></div>
+                         </div>
+                    </div>
+                    <!-- **** Item 3: Meteomedia **** -->
+                    <div class="grid-item-container h-standard">
+                         <h4 class="item-title">Patscherkofel Forecast (Meteomedia)</h4>
+                         <div class="item-content">
+                             <img src="https://wetterstationen.meteomedia.at/messnetz/vorhersagegrafik/111260.png" alt="Meteomedia forecast graphic">
+                         </div>
+                    </div>
+                    <!-- **** Item 4: Windy Regenradar **** -->
+                    <div class="grid-item-container h-standard">
+                        <h4 class="item-title">Rain Radar</h4>
+                        <div class="item-content">
+                            <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=8&overlay=radar&product=radar&level=surface&lat=47.234&lon=11.398&message=false" frameborder="0"></iframe>
+                        </div>
+                    </div>
+                   <!-- **** Item 5: Windy Windvorhersage **** -->
+                    <div class="grid-item-container h-standard">
+                        <h4 class="item-title">Wind Forecast 2000m</h4>
+                        <div class="item-content">
+                            <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=km/h&zoom=9&overlay=wind&product=ecmwf&level=800h&lat=47.227&lon=11.382&detailLat=47.260592193424706&detailLon=11.392822265625&marker=true&message=false" frameborder="0"></iframe>
+                        </div>
+                    </div>
+                    <!-- **** Item 6: Windy Regenvorhersage **** -->
+                    <div class="grid-item-container h-standard">
+                        <h4 class="item-title">Rain Forecast</h4>
+                        <div class="item-content">
+                            <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=8&overlay=rain&product=iconD2&level=surface&lat=47.276&lon=11.376&detailLat=47.27550216573706&detailLon=11.3763427734375&marker=true&message=false" frameborder="0"></iframe>
+                        </div>
+                    </div>
+                </div> <!-- End of data-grid for Main tab -->
+            </div> <!-- End of Main Tab Content -->
+
+            <!-- Northern Alps Tab Content (Placeholder) -->
+            <div id="north-alps" class="tab-content">
+                <div class="grid-item-container h-standard">
+                    <h4 class="item-title">Brauneck Wind</h4>
+                    <div class="item-content">
+                    <iframe 
+                    frameborder="0" 
+                    marginheight="1" 
+                    marginwidth="1" 
+                    scrolling="no"  
+                    src="https://widget.holfuy.com/?station=1811&su=km/h&t=C&lang=en&mode=detailed" 
+                    style="width:580px; height:250px;"
+                    ></iframe>
+                    </div>
+                </div> 
             </div>
 
-            <!-- **** Item 2: WISKI Crop **** -->
-            <div class="grid-item-container h-standard">
-                 <h4 class="item-title">Patscherkofel Wind Measurements</h4>
-                 <div class="item-content">
-                     <div class="crop-box"
-                          style="--crop-url: url('https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/patscherkofel.png');
-                                 --crop-offset-y: -100px;" 
-                          role="img"
-                          aria-label="WISKI Tirol Patscherkofel Wind Speed and Direction Chart">
-                     </div>
-                 </div>
+            <!-- Allgäu Tab Content (Placeholder) -->
+            <div id="allgaeu" class="tab-content">
+                 <p>Content for Allgäu goes here. You can add another <code><div class="data-grid">...</div></code> structure if needed.</p>
+                 <!-- Add embeds/images relevant to Allgäu -->
             </div>
 
-            <!-- **** Item 3: Meteomedia **** -->
-            <div class="grid-item-container h-standard">
-                 <h4 class="item-title">Patscherkofel Forecast (Meteomedia)</h4>
-                 <div class="item-content">
-                     <img src="https://wetterstationen.meteomedia.at/messnetz/vorhersagegrafik/111260.png"
-                          alt="Meteomedia forecast graphic">
-                 </div>
-            </div>
-
-            <!-- **** Item 4: Windy Regenradar **** -->
-            <div class="grid-item-container h-standard">
-                <h4 class="item-title">Rain Radar</h4>
-                <div class="item-content">
-                    <!-- Removed width/height attributes, added message=false -->
-                    <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=8&overlay=radar&product=radar&level=surface&lat=47.234&lon=11.398&message=false"
-                    frameborder="0">
-                    </iframe>
-                </div>
-            </div>
-
-           <!-- **** Item 5: Windy Windvorhersage **** -->
-            <div class="grid-item-container h-standard">
-                <h4 class="item-title">Wind Forecast 2000m</h4>
-                <div class="item-content">
-                    <!-- Removed width/height attributes, added message=false -->
-                    <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=km/h&zoom=9&overlay=wind&product=ecmwf&level=800h&lat=47.227&lon=11.382&detailLat=47.260592193424706&detailLon=11.392822265625&marker=true&message=false"
-                    frameborder="0">
-                    </iframe>
-                </div>
-            </div>
-
-            <!-- **** Item 6: Windy Regenvorhersage **** -->
-            <div class="grid-item-container h-standard">
-                <h4 class="item-title">Rain Forecast</h4>
-                <div class="item-content">
-                    <!-- Removed width/height attributes, added message=false -->
-                    <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=8&overlay=rain&product=iconD2&level=surface&lat=47.276&lon=11.376&detailLat=47.27550216573706&detailLon=11.3763427734375&marker=true&message=false"
-                    frameborder="0">
-                    </iframe>
-                </div>
-            </div>
-        </div> <!-- End of the Weather data grid div -->
+        </div> <!-- End of tab-content-container -->
     </div> <!-- End of the Weather data section div -->
 
 
-    <!-- Webcams Section -->
-    <div class="weather-section">
-        <h2>Webcams</h2>
-        <div class="data-grid">
-
-            <!-- **** Item 7: Foto-Webcam **** -->
-            <div class="grid-item-container h-standard">
-                 <h4 class="item-title">Innsbruck (Foto-Webcam)</h4>
-                 <div class="item-content">
-                     <a href='https://www.foto-webcam.eu/webcam/innsbruck/' target="_blank">
-                        <img src='https://www.foto-webcam.eu/webcam/innsbruck/current/720.jpg'
-                             alt="Foto-Webcam Innsbruck Still Image">
-                    </a>
-                 </div>
+        <!-- Webcams Section WITH TABS -->
+        <div class="weather-section">
+            <h2>Webcams</h2>
+    
+            <!-- Tab Buttons for Webcams -->
+            <div class="tab-buttons">
+                <!-- Use unique data-tab values like '-cam' suffix -->
+                <button class="tab-button active" data-tab="innsbruck-cam">Innsbruck</button>
+                <button class="tab-button" data-tab="north-alps-cam">Northern Alps</button>
+                <button class="tab-button" data-tab="allgaeu-cam">Allgäu</button>
             </div>
-
-            <!-- **** Item 8: Elfer Webcam **** -->
-            <div class="grid-item-container h-standard">
-                 <h4 class="item-title">Neustift/Elfer (Feratel)</h4>
-                 <div class="item-content">
-                     <iframe
-                        src="https://webtv.feratel.com/webtv/?design=v5&cam=5714&c1=0&autoplay=0"
-                        allowfullscreen
-                        title="Elfer Webcam">
-                    </iframe>
-                 </div>
-            </div>
-
-        </div> <!-- End of the Webcams grid div -->
-    </div> <!-- End of the Webcams section div -->
+    
+            <!-- Tab Content Panels for Webcams -->
+            <div class="tab-content-container">
+    
+                <!-- Innsbruck Tab Content (Existing Grid) -->
+                <div id="innsbruck-cam" class="tab-content active">
+                     <div class="data-grid">
+                        <!-- **** Item 7: Foto-Webcam **** -->
+                        <div class="grid-item-container h-standard">
+                             <h4 class="item-title">Innsbruck (Foto-Webcam)</h4>
+                             <div class="item-content">
+                                 <a href='https://www.foto-webcam.eu/webcam/innsbruck/' target="_blank">
+                                    <img src='https://www.foto-webcam.eu/webcam/innsbruck/current/720.jpg' alt="Foto-Webcam Innsbruck Still Image">
+                                </a>
+                             </div>
+                        </div>
+                        <!-- **** Item 8: Elfer Webcam **** -->
+                        <div class="grid-item-container h-standard">
+                             <h4 class="item-title">Neustift/Elfer (Feratel)</h4>
+                             <div class="item-content">
+                                 <iframe src="https://webtv.feratel.com/webtv/?design=v5&cam=5714&c1=0&autoplay=0" allowfullscreen title="Elfer Webcam"></iframe>
+                             </div>
+                        </div>
+                    </div> <!-- End of data-grid for Innsbruck cams -->
+                </div> <!-- End of Innsbruck Tab Content -->
+    
+                <!-- Northern Alps Cams Tab Content (Placeholder) -->
+                <div id="north-alps-cam" class="tab-content">
+                    <div class="data-grid">
+                        <div class="grid-item-container h-standard">
+                            <h4 class="item-title">Brauneck</h4>
+                            <div class="item-content">
+                            <iframe src="https://webtv.feratel.com/webtv/?design=v5&cam=3165&c1=0" allowfullscreen title="Brauneck Webcam"></iframe>
+                            </div>
+                        </div>
+                    
+                        <div class="grid-item-container h-standard">
+                            <h4 class="item-title">Zugspitze Ost (Foto-Webcam)</h4>
+                            <div class="item-content">
+                                <a href='https://www.foto-webcam.eu/webcam/zugspitze-ost/'>
+                                    <img src='https://www.foto-webcam.eu/webcam/zugspitze-ost/current/720.jpg'>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add embeds/images relevant to Northern Alps Webcams -->
+                </div>
+    
+                <!-- Allgäu Cams Tab Content (Placeholder) -->
+                <div id="allgaeu-cam" class="tab-content">
+                     <p>Webcams for Allgäu go here.</p>
+                     <!-- Add embeds/images relevant to Allgäu Webcams -->
+                </div>
+    
+            </div> <!-- End of webcam tab-content-container -->
+        </div> <!-- End of the Webcams section div -->
 
     <!-- XC Section -->
     <div class="weather-section">
         <h2>XC Planning</h2>
          <ul>
-            <li><a href="Flyxc.app " target="_blank">FlyXC App</a></li>
+            <li><a href="https://flyxc.app/" target="_blank">FlyXC App</a> <!-- Corrected link --></li>
             <li><a href="https://berndgassner.de/thermix/" target="_blank">Thermix by Bernd Gassner</a></li>
         </ul>
     </div>
@@ -302,6 +370,42 @@
 
     <hr>
     <p><small>Page last updated: [10.04.2025]</small></p>
+
+        <!-- **** REVISED JavaScript for Independent Tabs **** -->
+        <script>
+            // Select all tab button containers
+            const tabButtonContainers = document.querySelectorAll('.tab-buttons');
+    
+            tabButtonContainers.forEach(container => {
+                container.addEventListener('click', (event) => {
+                    // Check if the clicked element is actually a button inside the container
+                    if (event.target.classList.contains('tab-button')) {
+                        const clickedButton = event.target;
+                        const targetTabId = clickedButton.dataset.tab; // e.g., "innsbruck-cam"
+    
+                        // Find the closest parent weather-section to scope the changes
+                        const parentSection = clickedButton.closest('.weather-section');
+                        if (!parentSection) return; // Should not happen, but safe check
+    
+                        // --- Within the specific parent section ---
+                        // Deactivate all buttons in this section
+                        parentSection.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                        // Deactivate all content panels in this section
+                        parentSection.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+    
+                        // Activate the clicked button
+                        clickedButton.classList.add('active');
+    
+                        // Activate the corresponding content panel within this section
+                        // Use querySelector for safer ID handling (though getElementById is fine if IDs are simple)
+                        const targetContent = parentSection.querySelector('#' + targetTabId);
+                        if (targetContent) {
+                            targetContent.classList.add('active');
+                        }
+                    }
+                });
+            });
+        </script>
 
 </body>
 </html>
