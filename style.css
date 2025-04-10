@@ -1,0 +1,101 @@
+/* Basic Styling */
+body { font-family: sans-serif; padding: 20px; background-color: #f4f4f4; }
+h1 { text-align: center; margin-bottom: 30px; }
+h2 { color: #333; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px; margin-top: 0; }
+.weather-section { margin-bottom: 30px; border: 1px solid #ddd; padding: 15px; border-radius: 8px; background-color: #fff; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
+a { color: #0056b3; text-decoration: none; }
+a:hover { text-decoration: underline; color: #003d80; }
+ul { list-style: none; padding-left: 0; margin-top: 5px; }
+li { margin-bottom: 8px; }
+
+/* Grid Layout & Custom Properties (Desktop) */
+.data-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    --grid-gap: 20px;
+    --unit-height: 190px;
+    gap: var(--grid-gap);
+    grid-auto-flow: dense;
+    margin-top: 15px;
+}
+
+/* Modular Height Helper Classes (Desktop) */
+.h-standard { height: calc(var(--unit-height) * 2 + var(--grid-gap)); }
+.h-tall { height: calc((var(--unit-height) * 2 + var(--grid-gap)) * 2 + var(--grid-gap)); grid-row: span 2; }
+
+/* Container for Grid Items */
+.grid-item-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    overflow: hidden;
+}
+.grid-item-container .item-title {
+    margin: 0; padding: 6px 10px; font-size: 0.85em; font-weight: bold; text-align: center; background-color: #e9e9e9; border-bottom: 1px solid #ccc; flex-shrink: 0; color: #333;
+}
+.grid-item-container .item-content {
+    flex-grow: 1; min-height: 0; padding: 5px; background-color: #fff; display: flex; justify-content: center; align-items: center; overflow: hidden;
+}
+
+/* Base Styling for Content WITHIN Container */
+.grid-item-container img,
+.grid-item-container iframe,
+.grid-item-container .crop-box,
+.grid-item-container a {
+    display: block; width: 100%; height: 100%; border: none; border-radius: 0; background-color: transparent;
+}
+.grid-item-container img { object-fit: contain; }
+.grid-item-container a img { display: block; }
+
+/* Cropping Box */
+.crop-box {
+    background-image: var(--crop-url); background-position: 0 var(--crop-offset-y); width: 100%; height: 100%; background-repeat: no-repeat; background-size: 100% auto; display: block;
+}
+
+/* Tab Styling */
+.tab-buttons { border-bottom: 2px solid #ccc; margin-bottom: 0; padding-left: 0; }
+.tab-button { padding: 8px 15px; cursor: pointer; border: 1px solid transparent; border-bottom: none; border-radius: 5px 5px 0 0; background-color: #f1f1f1; margin-right: 3px; margin-bottom: -2px; font-size: 0.9em; position: relative; bottom: -1px; }
+.tab-button:hover { background-color: #ddd; }
+.tab-button.active { background-color: #fff; border-color: #ccc #ccc transparent #ccc; font-weight: bold; z-index: 1; }
+.tab-content { display: none; padding-top: 15px; border-top: 1px solid transparent; }
+.tab-content.active { display: block; }
+/* Ensure elements marked as hidden are visually hidden */
+[hidden] { display: none !important; }
+
+/* Vertical Iframe Stack */
+.iframe-stack {
+    display: flex; flex-direction: column; width: 100%; height: 100%; overflow: hidden;
+}
+.iframe-stack iframe {
+    flex-basis: 0; flex-shrink: 0; width: 100%; border: none; min-height: 0;
+}
+.iframe-stack iframe:first-child { flex-grow: 3; } /* More space for top iframe */
+.iframe-stack iframe:last-child { flex-grow: 2; }  /* Less space for bottom iframe */
+
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .data-grid { grid-template-columns: 1fr; }
+    .data-grid .h-tall { grid-row: auto; }
+
+    /* Container Sizing on Mobile */
+    .data-grid .grid-item-container.h-standard,
+    .data-grid .grid-item-container.h-tall { height: auto; aspect-ratio: unset; }
+
+    /* Content Sizing on Mobile */
+    .grid-item-container img { max-width: 100%; }
+    .grid-item-container iframe[src*="windy.com"] { width: 100%; height: auto; aspect-ratio: 1/1; }
+    .grid-item-container iframe[src*="feratel.com"] { width: 100%; height: auto; aspect-ratio: 16/9; }
+    /* Holfuy - Exclude stacked */
+    .grid-item-container iframe[src*="holfuy.com"]:not(.iframe-stack iframe) { width: 100%; height: auto; aspect-ratio: 58 / 25; }
+    .grid-item-container .crop-box { width: 100%; height: auto; aspect-ratio: 3/2; background-position: 0 0; }
+
+    /* Tab button scrolling */
+    .tab-buttons { white-space: nowrap; overflow-x: auto; margin-bottom: -1px; }
+    .tab-button { display: inline-block; margin-bottom: -1px; }
+
+    /* Stacked iframes on mobile */
+    .iframe-stack iframe { aspect-ratio: unset; /* Use flex sizing */ }
+} /* End of @media query */
