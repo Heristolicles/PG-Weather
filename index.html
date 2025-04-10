@@ -12,32 +12,25 @@
         .weather-section { margin-bottom: 30px; border: 1px solid #ddd; padding: 15px; border-radius: 8px; background-color: #fff; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
         a { color: #0056b3; text-decoration: none; }
         a:hover { text-decoration: underline; color: #003d80; }
-        ul { list-style: none; padding-left: 0; margin-top: 5px; /* Adjust ul spacing */}
+        ul { list-style: none; padding-left: 0; margin-top: 5px; }
         li { margin-bottom: 8px; }
 
-        /* --- Grid Layout & Custom Properties (Desktop) --- */
-        /* Applies INSIDE tab-content now */
+        /* Grid Layout & Custom Properties (Desktop) */
         .data-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             --grid-gap: 20px;
-            --unit-height: 190px; /* Base height reference */
+            --unit-height: 190px;
             gap: var(--grid-gap);
             grid-auto-flow: dense;
-            margin-top: 15px; /* Add space between tabs and grid */
+            margin-top: 15px;
         }
 
-        /* --- Modular Height Helper Classes (Desktop) --- */
-        /* Applied to .grid-item-container */
-        .h-standard {
-            height: calc(var(--unit-height) * 2 + var(--grid-gap)); /* e.g., 400px */
-        }
-        .h-tall {
-            height: calc((var(--unit-height) * 2 + var(--grid-gap)) * 2 + var(--grid-gap)); /* e.g., 820px */
-            grid-row: span 2;
-        }
+        /* Modular Height Helper Classes (Desktop) */
+        .h-standard { height: calc(var(--unit-height) * 2 + var(--grid-gap)); }
+        .h-tall { height: calc((var(--unit-height) * 2 + var(--grid-gap)) * 2 + var(--grid-gap)); grid-row: span 2; }
 
-        /* --- Container for Grid Items with Titles --- */
+        /* Container for Grid Items */
         .grid-item-container {
             display: flex;
             flex-direction: column;
@@ -46,125 +39,70 @@
             background-color: #f8f8f8;
             overflow: hidden;
         }
-
         .grid-item-container .item-title {
-            margin: 0;
-            padding: 6px 10px;
-            font-size: 0.85em;
-            font-weight: bold;
-            text-align: center;
-            background-color: #e9e9e9;
-            border-bottom: 1px solid #ccc;
-            flex-shrink: 0;
-            color: #333;
+            margin: 0; padding: 6px 10px; font-size: 0.85em; font-weight: bold; text-align: center; background-color: #e9e9e9; border-bottom: 1px solid #ccc; flex-shrink: 0; color: #333;
         }
-
         .grid-item-container .item-content {
-            flex-grow: 1;
-            min-height: 0;
-            padding: 5px;
-            background-color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+            flex-grow: 1; min-height: 0; padding: 5px; background-color: #fff; display: flex; justify-content: center; align-items: center; overflow: hidden;
         }
 
-        /* --- Base Styling for Content WITHIN Container --- */
+        /* Base Styling for Content WITHIN Container */
         .grid-item-container img,
         .grid-item-container iframe,
         .grid-item-container .crop-box,
         .grid-item-container a {
-            display: block;
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 0;
-            background-color: transparent;
+            display: block; width: 100%; height: 100%; border: none; border-radius: 0; background-color: transparent;
         }
         .grid-item-container img { object-fit: contain; }
         .grid-item-container a img { display: block; }
 
-        /* --- Cropping Box --- */
+        /* Cropping Box */
         .crop-box {
-            background-image: var(--crop-url);
-            background-position: 0 var(--crop-offset-y);
-            width: 100%;
-            height: 100%;
-            background-repeat: no-repeat;
-            background-size: 100% auto;
-            display: block;
+            background-image: var(--crop-url); background-position: 0 var(--crop-offset-y); width: 100%; height: 100%; background-repeat: no-repeat; background-size: 100% auto; display: block;
         }
 
-        /* --- **** NEW: Tab Styling **** --- */
-        .tab-buttons {
-            border-bottom: 2px solid #ccc;
-            margin-bottom: 0; /* Reset margin if needed */
-            padding-left: 0; /* Align with section padding */
+        /* Tab Styling */
+        .tab-buttons { border-bottom: 2px solid #ccc; margin-bottom: 0; padding-left: 0; }
+        .tab-button { padding: 8px 15px; cursor: pointer; border: 1px solid transparent; border-bottom: none; border-radius: 5px 5px 0 0; background-color: #f1f1f1; margin-right: 3px; margin-bottom: -2px; font-size: 0.9em; position: relative; bottom: -1px; }
+        .tab-button:hover { background-color: #ddd; }
+        .tab-button.active { background-color: #fff; border-color: #ccc #ccc transparent #ccc; font-weight: bold; z-index: 1; }
+        .tab-content { display: none; padding-top: 15px; border-top: 1px solid transparent; }
+        .tab-content.active { display: block; }
+
+        /* Vertical Iframe Stack */
+        .iframe-stack {
+            display: flex; flex-direction: column; width: 100%; height: 100%; overflow: hidden;
         }
-        .tab-button {
-            padding: 8px 15px;
-            cursor: pointer;
-            border: 1px solid transparent;
-            border-bottom: none;
-            border-radius: 5px 5px 0 0; /* Rounded top corners */
-            background-color: #f1f1f1;
-            margin-right: 3px;
-            margin-bottom: -2px; /* Overlap border-bottom */
-            font-size: 0.9em;
-            position: relative; /* For z-index */
-            bottom: -1px; /* Align with bottom border */
+        .iframe-stack iframe {
+            flex-basis: 0; flex-shrink: 0; width: 100%; border: none; min-height: 0;
         }
-        .tab-button:hover {
-            background-color: #ddd;
-        }
-        .tab-button.active {
-            background-color: #fff;
-            border-color: #ccc #ccc transparent #ccc; /* Border on 3 sides */
-            font-weight: bold;
-            z-index: 1; /* Bring active tab border above container border */
-        }
-        .tab-content {
-            display: none; /* Hide content by default */
-            padding-top: 15px; /* Space below the tabs */
-            border-top: 1px solid transparent; /* Prevent content jump */
-        }
-        .tab-content.active {
-            display: block; /* Show active content */
-        }
-        /* --- **** End Tab Styling **** --- */
+        .iframe-stack iframe:first-child { flex-grow: 3; } /* More space for top iframe */
+        .iframe-stack iframe:last-child { flex-grow: 2; }  /* Less space for bottom iframe */
 
 
-        /* --- Mobile Responsiveness --- */
+        /* Mobile Responsiveness */
         @media (max-width: 768px) {
-            .data-grid {
-                grid-template-columns: 1fr; /* Single column grid on mobile */
-            }
+            .data-grid { grid-template-columns: 1fr; }
             .data-grid .h-tall { grid-row: auto; }
 
             /* Container Sizing on Mobile */
             .data-grid .grid-item-container.h-standard,
-            .data-grid .grid-item-container.h-tall {
-                 height: auto;
-                 aspect-ratio: unset;
-            }
+            .data-grid .grid-item-container.h-tall { height: auto; aspect-ratio: unset; }
 
             /* Content Sizing on Mobile */
             .grid-item-container img { max-width: 100%; }
             .grid-item-container iframe[src*="windy.com"] { width: 100%; height: auto; aspect-ratio: 1/1; }
             .grid-item-container iframe[src*="feratel.com"] { width: 100%; height: auto; aspect-ratio: 16/9; }
+            /* Holfuy - Exclude stacked */
+            .grid-item-container iframe[src*="holfuy.com"]:not(.iframe-stack iframe) { width: 100%; height: auto; aspect-ratio: 58 / 25; }
             .grid-item-container .crop-box { width: 100%; height: auto; aspect-ratio: 3/2; background-position: 0 0; }
 
-            /* Tab buttons might wrap on mobile, add scroll or adjust */
-            .tab-buttons {
-                 white-space: nowrap; /* Prevent wrapping */
-                 overflow-x: auto; /* Allow horizontal scrolling if needed */
-                 margin-bottom: -1px; /* Align with border */
-             }
-             .tab-button {
-                  display: inline-block; /* Needed for nowrap */
-                  margin-bottom: -1px;
-              }
+            /* Tab button scrolling */
+            .tab-buttons { white-space: nowrap; overflow-x: auto; margin-bottom: -1px; }
+            .tab-button { display: inline-block; margin-bottom: -1px; }
+
+            /* Stacked iframes on mobile */
+            .iframe-stack iframe { aspect-ratio: unset; /* Use flex sizing */ }
         } /* End of @media query */
 
     </style>
@@ -198,154 +136,139 @@
         <!-- Tab Content Panels -->
         <div class="tab-content-container">
 
-            <!-- Main Tab Content (Existing Grid) -->
+            <!-- Main Tab Content -->
             <div id="main" class="tab-content active">
                 <div class="data-grid">
                     <!-- **** Item 1: Profiwetter **** -->
-                    <div class="grid-item-container h-standard">
-                        <h4 class="item-title">Föhn Diagram (Profiwetter)</h4>
-                        <div class="item-content">
-                            <img src="https://profiwetter.ch/wind_foehn_at_de.png" alt="Profiwetter Wind and Foehn Chart for Austria/Germany">
-                        </div>
-                    </div>
+                    <div class="grid-item-container h-standard"> <h4 class="item-title">Föhn Diagram (Profiwetter)</h4> <div class="item-content"> <img src="https://profiwetter.ch/wind_foehn_at_de.png" alt="Profiwetter Wind and Foehn Chart for Austria/Germany"> </div> </div>
                     <!-- **** Item 2: WISKI Crop **** -->
-                    <div class="grid-item-container h-standard">
-                         <h4 class="item-title">Patscherkofel Wind Measurements</h4>
-                         <div class="item-content">
-                             <div class="crop-box" style="--crop-url: url('https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/patscherkofel.png'); --crop-offset-y: -100px;" role="img" aria-label="WISKI Tirol Patscherkofel Wind Speed and Direction Chart"></div>
-                         </div>
-                    </div>
+                    <div class="grid-item-container h-standard"> <h4 class="item-title">Patscherkofel Wind Measurements</h4> <div class="item-content"> <div class="crop-box" style="--crop-url: url('https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/patscherkofel.png'); --crop-offset-y: -100px;" role="img" aria-label="WISKI Tirol Patscherkofel Wind Speed and Direction Chart"></div> </div> </div>
                     <!-- **** Item 3: Meteomedia **** -->
-                    <div class="grid-item-container h-standard">
-                         <h4 class="item-title">Patscherkofel Forecast (Meteomedia)</h4>
-                         <div class="item-content">
-                             <img src="https://wetterstationen.meteomedia.at/messnetz/vorhersagegrafik/111260.png" alt="Meteomedia forecast graphic">
-                         </div>
-                    </div>
+                    <div class="grid-item-container h-standard"> <h4 class="item-title">Patscherkofel Forecast (Meteomedia)</h4> <div class="item-content"> <img src="https://wetterstationen.meteomedia.at/messnetz/vorhersagegrafik/111260.png" alt="Meteomedia forecast graphic"> </div> </div>
                     <!-- **** Item 4: Windy Regenradar **** -->
-                    <div class="grid-item-container h-standard">
-                        <h4 class="item-title">Rain Radar</h4>
-                        <div class="item-content">
-                            <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=8&overlay=radar&product=radar&level=surface&lat=47.234&lon=11.398&message=false" frameborder="0"></iframe>
-                        </div>
-                    </div>
-                   <!-- **** Item 5: Windy Windvorhersage **** -->
-                    <div class="grid-item-container h-standard">
-                        <h4 class="item-title">Wind Forecast 2000m</h4>
-                        <div class="item-content">
-                            <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=km/h&zoom=9&overlay=wind&product=ecmwf&level=800h&lat=47.227&lon=11.382&detailLat=47.260592193424706&detailLon=11.392822265625&marker=true&message=false" frameborder="0"></iframe>
-                        </div>
-                    </div>
+                    <div class="grid-item-container h-standard"> <h4 class="item-title">Rain Radar</h4> <div class="item-content"> <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=8&overlay=radar&product=radar&level=surface&lat=47.234&lon=11.398&message=false" frameborder="0" title="Windy Rain Radar"></iframe> </div> </div>
+                    <!-- **** Item 5: Windy Windvorhersage **** -->
+                    <div class="grid-item-container h-standard"> <h4 class="item-title">Wind Forecast 2000m</h4> <div class="item-content"> <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=km/h&zoom=9&overlay=wind&product=ecmwf&level=800h&lat=47.227&lon=11.382&detailLat=47.260592193424706&detailLon=11.392822265625&marker=true&message=false" frameborder="0" title="Windy Wind Forecast"></iframe> </div> </div>
                     <!-- **** Item 6: Windy Regenvorhersage **** -->
-                    <div class="grid-item-container h-standard">
-                        <h4 class="item-title">Rain Forecast</h4>
-                        <div class="item-content">
-                            <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=8&overlay=rain&product=iconD2&level=surface&lat=47.276&lon=11.376&detailLat=47.27550216573706&detailLon=11.3763427734375&marker=true&message=false" frameborder="0"></iframe>
-                        </div>
-                    </div>
-                </div> <!-- End of data-grid for Main tab -->
+                    <div class="grid-item-container h-standard"> <h4 class="item-title">Rain Forecast</h4> <div class="item-content"> <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=8&overlay=rain&product=iconD2&level=surface&lat=47.276&lon=11.376&detailLat=47.27550216573706&detailLon=11.3763427734375&marker=true&message=false" frameborder="0" title="Windy Rain Forecast"></iframe> </div> </div>
+                </div>
             </div> <!-- End of Main Tab Content -->
 
-            <!-- Northern Alps Tab Content (Placeholder) -->
+            <!-- Northern Alps Tab Content -->
             <div id="north-alps" class="tab-content">
-                <div class="grid-item-container h-standard">
-                    <h4 class="item-title">Brauneck Wind</h4>
-                    <div class="item-content">
-                    <iframe 
-                    frameborder="0" 
-                    marginheight="1" 
-                    marginwidth="1" 
-                    scrolling="no"  
-                    src="https://widget.holfuy.com/?station=1811&su=km/h&t=C&lang=en&mode=detailed" 
-                    style="width:580px; height:250px;"
-                    ></iframe>
+                <div class="data-grid">
+                    <div class="grid-item-container h-standard">
+                        <h4 class="item-title">Brauneck Wind</h4>
+                        <div class="item-content">
+                            <div class="iframe-stack">
+                                <iframe frameborder="0" marginheight="1" marginwidth="1" scrolling="no" src="https://widget.holfuy.com/?station=1811&su=km/h&t=C&lang=en&mode=detailed" title="Holfuy Widget Brauneck Detailed"></iframe>
+                                <iframe frameborder="0" marginheight="1" marginwidth="1" scrolling="no" src="https://widget.holfuy.com/?station=1811&su=km/h&t=C&lang=en&mode=average&avgrows=32" title="Holfuy Widget Brauneck Average"></iframe>
+                            </div>
+                        </div>
                     </div>
-                </div> 
-            </div>
+                    <div class="grid-item-container h-standard">
+                        <h4 class="item-title">Grubigstein Wind</h4>
+                        <div class="item-content">
+                            <div class="iframe-stack">
+                                <iframe frameborder="0" marginheight="1" marginwidth="1" scrolling="no" src="https://widget.holfuy.com/?station=348&su=km/h&t=C&lang=en&mode=detailed" title="Holfuy Widget Grubigstein Detailed"></iframe>
+                                <iframe frameborder="0" marginheight="1" marginwidth="1" scrolling="no" src="https://widget.holfuy.com/?station=348&su=km/h&t=C&lang=en&mode=average&avgrows=32" title="Holfuy Widget Grubigstein Average"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more Northern Alps items here if needed -->
+                </div>
+            </div> <!-- End Northern Alps Tab -->
 
-            <!-- Allgäu Tab Content (Placeholder) -->
+            <!-- Allgäu Tab Content -->
             <div id="allgaeu" class="tab-content">
-                 <p>Content for Allgäu goes here. You can add another <code><div class="data-grid">...</div></code> structure if needed.</p>
-                 <!-- Add embeds/images relevant to Allgäu -->
-            </div>
+                <div class="data-grid">
+                    <!-- Example Item for Allgäu -->
+                    <div class="grid-item-container h-standard">
+                         <h4 class="item-title">Placeholder Allgäu Item</h4>
+                         <div class="item-content">
+                              <p>Add Allgäu specific content here</p>
+                         </div>
+                     </div>
+                     <!-- Add more Allgäu items here if needed -->
+                </div>
+            </div> <!-- End Allgäu Tab -->
 
-        </div> <!-- End of tab-content-container -->
+        </div> <!-- End of Weather Data tab-content-container -->
     </div> <!-- End of the Weather data section div -->
 
 
-        <!-- Webcams Section WITH TABS -->
-        <div class="weather-section">
-            <h2>Webcams</h2>
-    
-            <!-- Tab Buttons for Webcams -->
-            <div class="tab-buttons">
-                <!-- Use unique data-tab values like '-cam' suffix -->
-                <button class="tab-button active" data-tab="innsbruck-cam">Innsbruck</button>
-                <button class="tab-button" data-tab="north-alps-cam">Northern Alps</button>
-                <button class="tab-button" data-tab="allgaeu-cam">Allgäu</button>
-            </div>
-    
-            <!-- Tab Content Panels for Webcams -->
-            <div class="tab-content-container">
-    
-                <!-- Innsbruck Tab Content (Existing Grid) -->
-                <div id="innsbruck-cam" class="tab-content active">
-                     <div class="data-grid">
-                        <!-- **** Item 7: Foto-Webcam **** -->
-                        <div class="grid-item-container h-standard">
-                             <h4 class="item-title">Innsbruck (Foto-Webcam)</h4>
-                             <div class="item-content">
-                                 <a href='https://www.foto-webcam.eu/webcam/innsbruck/' target="_blank">
-                                    <img src='https://www.foto-webcam.eu/webcam/innsbruck/current/720.jpg' alt="Foto-Webcam Innsbruck Still Image">
-                                </a>
-                             </div>
-                        </div>
-                        <!-- **** Item 8: Elfer Webcam **** -->
-                        <div class="grid-item-container h-standard">
-                             <h4 class="item-title">Neustift/Elfer (Feratel)</h4>
-                             <div class="item-content">
-                                 <iframe src="https://webtv.feratel.com/webtv/?design=v5&cam=5714&c1=0&autoplay=0" allowfullscreen title="Elfer Webcam"></iframe>
-                             </div>
-                        </div>
-                    </div> <!-- End of data-grid for Innsbruck cams -->
-                </div> <!-- End of Innsbruck Tab Content -->
-    
-                <!-- Northern Alps Cams Tab Content (Placeholder) -->
-                <div id="north-alps-cam" class="tab-content">
-                    <div class="data-grid">
-                        <div class="grid-item-container h-standard">
-                            <h4 class="item-title">Brauneck</h4>
-                            <div class="item-content">
-                            <iframe src="https://webtv.feratel.com/webtv/?design=v5&cam=3165&c1=0" allowfullscreen title="Brauneck Webcam"></iframe>
-                            </div>
-                        </div>
-                    
-                        <div class="grid-item-container h-standard">
-                            <h4 class="item-title">Zugspitze Ost (Foto-Webcam)</h4>
-                            <div class="item-content">
-                                <a href='https://www.foto-webcam.eu/webcam/zugspitze-ost/'>
-                                    <img src='https://www.foto-webcam.eu/webcam/zugspitze-ost/current/720.jpg'>
-                                </a>
-                            </div>
+    <!-- **** Webcams Section STARTS HERE (Correct Position) **** -->
+    <div class="weather-section">
+        <h2>Webcams</h2>
+
+        <!-- Tab Buttons for Webcams -->
+        <div class="tab-buttons">
+            <button class="tab-button active" data-tab="innsbruck-cam">Innsbruck</button>
+            <button class="tab-button" data-tab="north-alps-cam">Northern Alps</button>
+            <button class="tab-button" data-tab="allgaeu-cam">Allgäu</button>
+        </div>
+
+        <!-- Tab Content Panels for Webcams -->
+        <div class="tab-content-container">
+
+            <!-- Innsbruck Tab Content -->
+            <div id="innsbruck-cam" class="tab-content active">
+                 <div class="data-grid">
+                    <!-- **** Item 7: Foto-Webcam **** -->
+                    <div class="grid-item-container h-standard">
+                         <h4 class="item-title">Innsbruck (Foto-Webcam)</h4>
+                         <div class="item-content">
+                             <a href='https://www.foto-webcam.eu/webcam/innsbruck/' target="_blank">
+                                <img src='https://www.foto-webcam.eu/webcam/innsbruck/current/720.jpg' alt="Foto-Webcam Innsbruck Still Image">
+                            </a>
+                         </div>
+                    </div>
+                    <!-- **** Item 8: Elfer Webcam **** -->
+                    <div class="grid-item-container h-standard">
+                         <h4 class="item-title">Neustift/Elfer (Feratel)</h4>
+                         <div class="item-content">
+                             <iframe src="https://webtv.feratel.com/webtv/?design=v5&cam=5714&c1=0&autoplay=0" allowfullscreen title="Elfer Webcam"></iframe>
+                         </div>
+                    </div>
+                </div>
+            </div> <!-- End Innsbruck Cams Tab -->
+
+            <!-- Northern Alps Cams Tab Content -->
+            <div id="north-alps-cam" class="tab-content">
+                <div class="data-grid">
+                    <div class="grid-item-container h-standard">
+                        <h4 class="item-title">Brauneck</h4>
+                        <div class="item-content">
+                        <iframe src="https://webtv.feratel.com/webtv/?design=v5&cam=3165&c1=0&autoplay=0" allowfullscreen title="Brauneck Webcam"></iframe>
                         </div>
                     </div>
-                    <!-- Add embeds/images relevant to Northern Alps Webcams -->
+                    <div class="grid-item-container h-standard">
+                        <h4 class="item-title">Zugspitze Ost (Foto-Webcam)</h4>
+                        <div class="item-content">
+                            <a href='https://www.foto-webcam.eu/webcam/zugspitze-ost/' target="_blank">
+                                <img src='https://www.foto-webcam.eu/webcam/zugspitze-ost/current/720.jpg' alt="Zugspitze Ost Webcam">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Add more Northern Alps webcams here -->
                 </div>
-    
-                <!-- Allgäu Cams Tab Content (Placeholder) -->
-                <div id="allgaeu-cam" class="tab-content">
-                     <p>Webcams for Allgäu go here.</p>
-                     <!-- Add embeds/images relevant to Allgäu Webcams -->
-                </div>
-    
-            </div> <!-- End of webcam tab-content-container -->
-        </div> <!-- End of the Webcams section div -->
+            </div> <!-- End Northern Alps Cams Tab -->
+
+            <!-- Allgäu Cams Tab Content -->
+            <div id="allgaeu-cam" class="tab-content">
+                 <p>Webcams for Allgäu go here.</p>
+                 <!-- Add embeds/images relevant to Allgäu Webcams -->
+            </div><!-- End Allgäu Cams Tab -->
+
+        </div> <!-- End of webcam tab-content-container -->
+    </div> <!-- End of the Webcams section div -->
+
 
     <!-- XC Section -->
     <div class="weather-section">
         <h2>XC Planning</h2>
          <ul>
-            <li><a href="https://flyxc.app/" target="_blank">FlyXC App</a> <!-- Corrected link --></li>
+            <li><a href="https://flyxc.app/" target="_blank">FlyXC App</a></li>
             <li><a href="https://berndgassner.de/thermix/" target="_blank">Thermix by Bernd Gassner</a></li>
         </ul>
     </div>
@@ -371,41 +294,25 @@
     <hr>
     <p><small>Page last updated: [10.04.2025]</small></p>
 
-        <!-- **** REVISED JavaScript for Independent Tabs **** -->
-        <script>
-            // Select all tab button containers
-            const tabButtonContainers = document.querySelectorAll('.tab-buttons');
-    
-            tabButtonContainers.forEach(container => {
-                container.addEventListener('click', (event) => {
-                    // Check if the clicked element is actually a button inside the container
-                    if (event.target.classList.contains('tab-button')) {
-                        const clickedButton = event.target;
-                        const targetTabId = clickedButton.dataset.tab; // e.g., "innsbruck-cam"
-    
-                        // Find the closest parent weather-section to scope the changes
-                        const parentSection = clickedButton.closest('.weather-section');
-                        if (!parentSection) return; // Should not happen, but safe check
-    
-                        // --- Within the specific parent section ---
-                        // Deactivate all buttons in this section
-                        parentSection.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-                        // Deactivate all content panels in this section
-                        parentSection.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-    
-                        // Activate the clicked button
-                        clickedButton.classList.add('active');
-    
-                        // Activate the corresponding content panel within this section
-                        // Use querySelector for safer ID handling (though getElementById is fine if IDs are simple)
-                        const targetContent = parentSection.querySelector('#' + targetTabId);
-                        if (targetContent) {
-                            targetContent.classList.add('active');
-                        }
-                    }
-                });
+    <!-- REVISED JavaScript for Independent Tabs -->
+    <script>
+        const tabButtonContainers = document.querySelectorAll('.tab-buttons');
+        tabButtonContainers.forEach(container => {
+            container.addEventListener('click', (event) => {
+                if (event.target.classList.contains('tab-button')) {
+                    const clickedButton = event.target;
+                    const targetTabId = clickedButton.dataset.tab;
+                    const parentSection = clickedButton.closest('.weather-section');
+                    if (!parentSection) return;
+                    parentSection.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                    parentSection.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                    clickedButton.classList.add('active');
+                    const targetContent = parentSection.querySelector('#' + targetTabId);
+                    if (targetContent) { targetContent.classList.add('active'); }
+                }
             });
-        </script>
+        });
+    </script>
 
 </body>
 </html>
