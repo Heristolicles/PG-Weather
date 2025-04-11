@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paragliding Weather Hub</title>
-    <link rel="stylesheet" href="style.css"> <!-- Link to external CSS -->
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -14,162 +15,136 @@
     <div class="weather-section">
          <h2>Weatherforecast sites</h2>
          <ul>
-            <li><a href="https://www.dhv.de/wetter/dhv-wetter/" target="_blank">DHV Flugwetter</a></li>
-            <li><a href="https://www.burnair.cloud/?layers=lz%2Cto%2Clp%2Cpz%2Cfp%2Cna%2Cle%2Cca%2Cvw%2Ccc%2Ctt%2Cpt%2Ctl%2Ctp%2Cpp%2Cmp%2Cw-ch-jb%2Cw-ch-wp%2Cw-ch-uw%2Cw-ch-wr%2Cmw%2Ctodhv%2Clzp%2Cpft%2Cpw250&visibility=off%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Cauto%2Cauto#10/47.2186/11.2967" target="_blank" rel="noopener noreferrer">Burnair</a></li>
-            <li><a href="https://www.windy.com/47.099/11.324/iconD2/meteogram?iconD2,46.951,11.324,10,p:pgspots" target="_blank" rel="noopener noreferrer">Windy</a></li>
-            <li><a href="https://www.austrocontrol.at/flugwetter/index.php?id=501&lang=de" target="_blank" rel="noopener noreferrer">Austro Control</a></li>
-            <li><a href="https://www.meteoblue.com/de/wetter/woche/hafelekarspitze_Österreich_2777088" target="_blank" rel="noopener noreferrer">Meteoblue</a></li>
+             <li><a href="https://www.burnair.cloud/?layers=lz%2Cto%2Clp%2Cpz%2Cfp%2Cna%2Cle%2Cca%2Cvw%2Ccc%2Ctt%2Cpt%2Ctl%2Ctp%2Cpp%2Cmp%2Cw-ch-jb%2Cw-ch-wp%2Cw-ch-uw%2Cw-ch-wr%2Cmw%2Ctodhv%2Clzp%2Cpft%2Cpw250&visibility=off%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Cauto%2Cauto#10/47.2186/11.2967" target="_blank">Burnair</a></li>
+            <li><a href="https://www.windy.com/47.099/11.324/iconD2/meteogram?iconD2,46.951,11.324,10,p:pgspots" target="_blank">Windy</a></li>
+            <li><a href="https://www.austrocontrol.at/flugwetter/index.php?id=501&lang=de" target="_blank">Austro Control</a></li>
+            <li><a href="https://www.meteoblue.com/de/wetter/woche/hafelekarspitze_Österreich_2777088" target="_blank">Meteoblue</a></li>
        </ul>
     </div>
 
     <!-- Weather data section WITH TABS -->
     <div class="weather-section">
         <h2>Weather data</h2>
-
-        <!-- Tab Buttons -->
-        <div class="tab-buttons" role="tablist" aria-label="Weather Data Regions">
-            <button class="tab-button active" role="tab" aria-selected="true" aria-controls="main" id="tab-main" data-tab="main">Main</button>
-            <button class="tab-button" role="tab" aria-selected="false" aria-controls="north-alps" id="tab-north-alps" data-tab="north-alps" tabindex="-1">Northern Alps</button>
-            <button class="tab-button" role="tab" aria-selected="false" aria-controls="allgaeu" id="tab-allgaeu" data-tab="allgaeu" tabindex="-1">Allgäu</button>
+        <div class="tab-buttons">
+            <button class="tab-button active" data-tab="main">Main</button>
+            <button class="tab-button" data-tab="north-alps">Northern Alps</button>
+            <button class="tab-button" data-tab="allgaeu">Allgäu</button>
         </div>
-
-        <!-- Tab Content Panels -->
         <div class="tab-content-container">
+            <div id="main" class="tab-content active">
+                 <!-- Live Station Data Section -->
+                 <div class="live-station-data">
+                    <h4>Live Station Data (LWD Tirol)</h4>
 
-            <!-- Main Tab Content -->
-            <div id="main" class="tab-content active" role="tabpanel" aria-labelledby="tab-main" tabindex="0">
+                    <!-- Placeholder for Hafelekar -->
+                    <div class="station-entry">
+                        <strong>Hafelekar:</strong>
+                        <span class="station-data-wrapper">
+                            <span class="wind-data" id="station-hafelekar-wind">Loading...</span>
+                            (<span class="time-data" id="station-hafelekar-time">--:--</span>)
+                        </span>
+                    </div>
+
+                    <!-- Placeholder for Grubigstein Windstation -->
+                    <div class="station-entry">
+                        <strong>Grubigstein:</strong>
+                         <span class="station-data-wrapper">
+                            <span class="wind-data" id="station-grubigstein-windstation-wind">Loading...</span>
+                            (<span class="time-data" id="station-grubigstein-windstation-time">--:--</span>)
+                         </span>
+                    </div>
+
+                     <!-- Placeholder for Rosshütte Windstation -->
+                    <div class="station-entry">
+                        <strong>Rosshütte:</strong>
+                         <span class="station-data-wrapper">
+                            <span class="wind-data" id="station-rossh-tte-windstation-wind">Loading...</span>
+                            (<span class="time-data" id="station-rossh-tte-windstation-time">--:--</span>)
+                         </span>
+                    </div>
+
+                    <!-- Placeholder for Elferspitze Windstation -->
+                    <div class="station-entry">
+                        <strong>Elferspitze:</strong>
+                         <span class="station-data-wrapper">
+                            <span class="wind-data" id="station-elferspitze-windstation-wind">Loading...</span>
+                            (<span class="time-data" id="station-elferspitze-windstation-time">--:--</span>)
+                         </span>
+                    </div>
+                    <!-- Add more station placeholders here for the "Main" tab if needed -->
+                 </div>
+                 <hr> <!-- Separator -->
                 <div class="data-grid">
                     <!-- **** Item 1: Profiwetter **** -->
-                    <div class="grid-item-container h-standard"> <h4 class="item-title">Föhn Diagram (Profiwetter)</h4> <div class="item-content"> <img loading="lazy" src="https://profiwetter.ch/wind_foehn_at_de.png" alt="Profiwetter Wind and Foehn Chart for Austria/Germany"> </div> </div>
+                    <div class="grid-item-container h-standard"> <h4 class="item-title">Föhn Diagram (Profiwetter)</h4> <div class="item-content"> <img src="https://profiwetter.ch/wind_foehn_at_de.png" alt="Profiwetter Wind and Foehn Chart for Austria/Germany"> </div> </div>
                     <!-- **** Item 2: WISKI Crop **** -->
                     <div class="grid-item-container h-standard"> <h4 class="item-title">Patscherkofel Wind Measurements</h4> <div class="item-content"> <div class="crop-box" style="--crop-url: url('https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/patscherkofel.png'); --crop-offset-y: -100px;" role="img" aria-label="WISKI Tirol Patscherkofel Wind Speed and Direction Chart"></div> </div> </div>
                     <!-- **** Item 3: Meteomedia **** -->
-                    <div class="grid-item-container h-standard"> <h4 class="item-title">Patscherkofel Forecast (Meteomedia)</h4> <div class="item-content"> <img loading="lazy" src="https://wetterstationen.meteomedia.at/messnetz/vorhersagegrafik/111260.png" alt="Meteomedia forecast graphic"> </div> </div>
+                    <div class="grid-item-container h-standard"> <h4 class="item-title">Patscherkofel Forecast (Meteomedia)</h4> <div class="item-content"> <img src="https://wetterstationen.meteomedia.at/messnetz/vorhersagegrafik/111260.png" alt="Meteomedia forecast graphic"> </div> </div>
                     <!-- **** Item 4: Windy Regenradar **** -->
-                    <div class="grid-item-container h-standard"> <h4 class="item-title">Rain Radar</h4> <div class="item-content"> <iframe loading="lazy" src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=8&overlay=radar&product=radar&level=surface&lat=47.234&lon=11.398&message=false" frameborder="0" title="Windy Rain Radar"></iframe> </div> </div>
+                    <div class="grid-item-container h-standard"> <h4 class="item-title">Rain Radar</h4> <div class="item-content"> <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=8&overlay=radar&product=radar&level=surface&lat=47.234&lon=11.398&message=false" frameborder="0" title="Windy Rain Radar"></iframe> </div> </div>
                     <!-- **** Item 5: Windy Windvorhersage **** -->
-                    <div class="grid-item-container h-standard"> <h4 class="item-title">Wind Forecast 2000m</h4> <div class="item-content"> <iframe loading="lazy" src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=km/h&zoom=9&overlay=wind&product=ecmwf&level=800h&lat=47.227&lon=11.382&detailLat=47.260592193424706&detailLon=11.392822265625&marker=true&message=false" frameborder="0" title="Windy Wind Forecast"></iframe> </div> </div>
+                    <div class="grid-item-container h-standard"> <h4 class="item-title">Wind Forecast 2000m</h4> <div class="item-content"> <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=km/h&zoom=9&overlay=wind&product=ecmwf&level=800h&lat=47.227&lon=11.382&detailLat=47.260592193424706&detailLon=11.392822265625&marker=true&message=false" frameborder="0" title="Windy Wind Forecast"></iframe> </div> </div>
                     <!-- **** Item 6: Windy Regenvorhersage **** -->
-                    <div class="grid-item-container h-standard"> <h4 class="item-title">Rain Forecast</h4> <div class="item-content"> <iframe loading="lazy" src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=8&overlay=rain&product=iconD2&level=surface&lat=47.276&lon=11.376&detailLat=47.27550216573706&detailLon=11.3763427734375&marker=true&message=false" frameborder="0" title="Windy Rain Forecast"></iframe> </div> </div>
+                    <div class="grid-item-container h-standard"> <h4 class="item-title">Rain Forecast</h4> <div class="item-content"> <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=8&overlay=rain&product=iconD2&level=surface&lat=47.276&lon=11.376&detailLat=47.27550216573706&detailLon=11.3763427734375&marker=true&message=false" frameborder="0" title="Windy Rain Forecast"></iframe> </div> </div>
                 </div>
-            </div> <!-- End of Main Tab Content -->
-
-            <!-- Northern Alps Tab Content -->
-            <div id="north-alps" class="tab-content" role="tabpanel" aria-labelledby="tab-north-alps" tabindex="0" hidden>
+            </div>
+            <div id="north-alps" class="tab-content">
+                 <!-- Add live data placeholders for Northern Alps stations here if desired -->
                 <div class="data-grid">
                     <div class="grid-item-container h-standard">
                         <h4 class="item-title">Brauneck Wind</h4>
-                        <div class="item-content">
-                            <div class="iframe-stack">
-                                <iframe loading="lazy" frameborder="0" marginheight="1" marginwidth="1" scrolling="no" src="https://widget.holfuy.com/?station=1811&su=km/h&t=C&lang=en&mode=detailed" title="Holfuy Widget Brauneck Detailed"></iframe>
-                                <iframe loading="lazy" frameborder="0" marginheight="1" marginwidth="1" scrolling="no" src="https://widget.holfuy.com/?station=1811&su=km/h&t=C&lang=en&mode=average&avgrows=32" title="Holfuy Widget Brauneck Average"></iframe>
-                            </div>
-                        </div>
+                        <div class="item-content"> <div class="iframe-stack"> <iframe frameborder="0" marginheight="1" marginwidth="1" scrolling="no" src="https://widget.holfuy.com/?station=1811&su=km/h&t=C&lang=en&mode=detailed" title="Holfuy Widget Brauneck Detailed"></iframe> <iframe frameborder="0" marginheight="1" marginwidth="1" scrolling="no" src="https://widget.holfuy.com/?station=1811&su=km/h&t=C&lang=en&mode=average&avgrows=32" title="Holfuy Widget Brauneck Average"></iframe> </div> </div>
                     </div>
                     <div class="grid-item-container h-standard">
                         <h4 class="item-title">Grubigstein Wind</h4>
-                        <div class="item-content">
-                            <div class="iframe-stack">
-                                <iframe loading="lazy" frameborder="0" marginheight="1" marginwidth="1" scrolling="no" src="https://widget.holfuy.com/?station=348&su=km/h&t=C&lang=en&mode=detailed" title="Holfuy Widget Grubigstein Detailed"></iframe>
-                                <iframe loading="lazy" frameborder="0" marginheight="1" marginwidth="1" scrolling="no" src="https://widget.holfuy.com/?station=348&su=km/h&t=C&lang=en&mode=average&avgrows=32" title="Holfuy Widget Grubigstein Average"></iframe>
-                            </div>
-                        </div>
+                        <div class="item-content"> <div class="iframe-stack"> <iframe frameborder="0" marginheight="1" marginwidth="1" scrolling="no" src="https://widget.holfuy.com/?station=348&su=km/h&t=C&lang=en&mode=detailed" title="Holfuy Widget Grubigstein Detailed"></iframe> <iframe frameborder="0" marginheight="1" marginwidth="1" scrolling="no" src="https://widget.holfuy.com/?station=348&su=km/h&t=C&lang=en&mode=average&avgrows=32" title="Holfuy Widget Grubigstein Average"></iframe> </div> </div>
                     </div>
-                    <!-- Add more Northern Alps items here if needed -->
                 </div>
-            </div> <!-- End Northern Alps Tab -->
-
-            <!-- Allgäu Tab Content -->
-            <div id="allgaeu" class="tab-content" role="tabpanel" aria-labelledby="tab-allgaeu" tabindex="0" hidden>
+            </div>
+            <div id="allgaeu" class="tab-content">
+                 <!-- Add live data placeholders for Allgäu stations here if desired -->
                 <div class="data-grid">
-                    <!-- Example Item for Allgäu -->
                     <div class="grid-item-container h-standard">
                          <h4 class="item-title">Placeholder Allgäu Item</h4>
-                         <div class="item-content">
-                              <p>Add Allgäu specific content here</p>
-                         </div>
+                         <div class="item-content"> <p>Add Allgäu specific content here</p> </div>
                      </div>
-                     <!-- Add more Allgäu items here if needed -->
                 </div>
-            </div> <!-- End Allgäu Tab -->
+            </div>
+        </div>
+    </div>
 
-        </div> <!-- End of Weather Data tab-content-container -->
-    </div> <!-- End of the Weather data section div -->
-
-
-    <!-- **** Webcams Section STARTS HERE (Correct Position) **** -->
+    <!-- Webcams Section WITH TABS -->
     <div class="weather-section">
         <h2>Webcams</h2>
-
-        <!-- Tab Buttons for Webcams -->
-        <div class="tab-buttons" role="tablist" aria-label="Webcam Regions">
-            <button class="tab-button active" role="tab" aria-selected="true" aria-controls="innsbruck-cam" id="tab-innsbruck-cam" data-tab="innsbruck-cam">Innsbruck</button>
-            <button class="tab-button" role="tab" aria-selected="false" aria-controls="north-alps-cam" id="tab-north-alps-cam" data-tab="north-alps-cam" tabindex="-1">Northern Alps</button>
-            <button class="tab-button" role="tab" aria-selected="false" aria-controls="allgaeu-cam" id="tab-allgaeu-cam" data-tab="allgaeu-cam" tabindex="-1">Allgäu</button>
+        <div class="tab-buttons">
+            <button class="tab-button active" data-tab="innsbruck-cam">Innsbruck</button>
+            <button class="tab-button" data-tab="north-alps-cam">Northern Alps</button>
+            <button class="tab-button" data-tab="allgaeu-cam">Allgäu</button>
         </div>
-
-        <!-- Tab Content Panels for Webcams -->
         <div class="tab-content-container">
-
-            <!-- Innsbruck Tab Content -->
-            <div id="innsbruck-cam" class="tab-content active" role="tabpanel" aria-labelledby="tab-innsbruck-cam" tabindex="0">
+            <div id="innsbruck-cam" class="tab-content active">
                  <div class="data-grid">
-                    <!-- **** Item 7: Foto-Webcam **** -->
-                    <div class="grid-item-container h-standard">
-                         <h4 class="item-title">Innsbruck (Foto-Webcam)</h4>
-                         <div class="item-content">
-                             <a href='https://www.foto-webcam.eu/webcam/innsbruck/' target="_blank" rel="noopener noreferrer">
-                                <img loading="lazy" src='https://www.foto-webcam.eu/webcam/innsbruck/current/720.jpg' alt="Foto-Webcam Innsbruck Still Image">
-                            </a>
-                         </div>
-                    </div>
-                    <!-- **** Item 8: Elfer Webcam **** -->
-                    <div class="grid-item-container h-standard">
-                         <h4 class="item-title">Neustift/Elfer (Feratel)</h4>
-                         <div class="item-content">
-                             <iframe loading="lazy" src="https://webtv.feratel.com/webtv/?design=v5&cam=5714&c1=0&autoplay=0" allowfullscreen title="Elfer Webcam"></iframe>
-                         </div>
-                    </div>
+                    <div class="grid-item-container h-standard"> <h4 class="item-title">Innsbruck (Foto-Webcam)</h4> <div class="item-content"> <a href='https://www.foto-webcam.eu/webcam/innsbruck/' target="_blank"> <img src='https://www.foto-webcam.eu/webcam/innsbruck/current/720.jpg' alt="Foto-Webcam Innsbruck Still Image"> </a> </div> </div>
+                    <div class="grid-item-container h-standard"> <h4 class="item-title">Neustift/Elfer (Feratel)</h4> <div class="item-content"> <iframe src="https://webtv.feratel.com/webtv/?design=v5&cam=5714&c1=0&autoplay=0" allowfullscreen title="Elfer Webcam"></iframe> </div> </div>
                 </div>
-            </div> <!-- End Innsbruck Cams Tab -->
-
-            <!-- Northern Alps Cams Tab Content -->
-            <div id="north-alps-cam" class="tab-content" role="tabpanel" aria-labelledby="tab-north-alps-cam" tabindex="0" hidden>
+            </div>
+            <div id="north-alps-cam" class="tab-content">
                 <div class="data-grid">
-                    <div class="grid-item-container h-standard">
-                        <h4 class="item-title">Brauneck</h4>
-                        <div class="item-content">
-                        <iframe loading="lazy" src="https://webtv.feratel.com/webtv/?design=v5&cam=3165&c1=0&autoplay=0" allowfullscreen title="Brauneck Webcam"></iframe>
-                        </div>
-                    </div>
-                    <div class="grid-item-container h-standard">
-                        <h4 class="item-title">Zugspitze Ost (Foto-Webcam)</h4>
-                        <div class="item-content">
-                            <a href='https://www.foto-webcam.eu/webcam/zugspitze-ost/' target="_blank" rel="noopener noreferrer">
-                                <img loading="lazy" src='https://www.foto-webcam.eu/webcam/zugspitze-ost/current/720.jpg' alt="Zugspitze Ost Webcam">
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Add more Northern Alps webcams here -->
+                    <div class="grid-item-container h-standard"> <h4 class="item-title">Brauneck</h4> <div class="item-content"> <iframe src="https://webtv.feratel.com/webtv/?design=v5&cam=3165&c1=0&autoplay=0" allowfullscreen title="Brauneck Webcam"></iframe> </div> </div>
+                    <div class="grid-item-container h-standard"> <h4 class="item-title">Zugspitze Ost (Foto-Webcam)</h4> <div class="item-content"> <a href='https://www.foto-webcam.eu/webcam/zugspitze-ost/' target="_blank"> <img src='https://www.foto-webcam.eu/webcam/zugspitze-ost/current/720.jpg' alt="Zugspitze Ost Webcam"> </a> </div> </div>
                 </div>
-            </div> <!-- End Northern Alps Cams Tab -->
-
-            <!-- Allgäu Cams Tab Content -->
-            <div id="allgaeu-cam" class="tab-content" role="tabpanel" aria-labelledby="tab-allgaeu-cam" tabindex="0" hidden>
-                 <p>Webcams for Allgäu go here.</p>
-                 <!-- Add embeds/images relevant to Allgäu Webcams -->
-            </div><!-- End Allgäu Cams Tab -->
-
-        </div> <!-- End of webcam tab-content-container -->
-    </div> <!-- End of the Webcams section div -->
-
+            </div>
+            <div id="allgaeu-cam" class="tab-content"> <p>Webcams for Allgäu go here.</p> </div>
+        </div>
+    </div>
 
     <!-- XC Section -->
     <div class="weather-section">
         <h2>XC Planning</h2>
          <ul>
-            <li><a href="https://flyxc.app/" target="_blank" rel="noopener noreferrer">FlyXC App</a></li>
-            <li><a href="https://berndgassner.de/thermix/" target="_blank" rel="noopener noreferrer">Thermix by Bernd Gassner</a></li>
+            <li><a href="https://flyxc.app/" target="_blank">FlyXC App</a></li>
+            <li><a href="https://berndgassner.de/thermix/" target="_blank">Thermix by Bernd Gassner</a></li>
         </ul>
     </div>
 
@@ -177,9 +152,9 @@
     <div class="weather-section">
         <h2>Marketplaces</h2>
          <ul>
-            <li><a href="https://service.dhv.de/db3/gebrauchtmarkt/" target="_blank" rel="noopener noreferrer">DHV Gebrauchtmarkt</a></li>
-            <li><a href="https://www.airscout365.com/index.php/de/anzeigen/paragleiten" target="_blank" rel="noopener noreferrer">Airscout365</a></li>
-            <li><a href="https://justacro.com/market" target="_blank" rel="noopener noreferrer">Just Acro Market</a></li>
+            <li><a href="https://service.dhv.de/db3/gebrauchtmarkt/" target="_blank">DHV Gebrauchtmarkt</a></li>
+            <li><a href="https://www.airscout365.com/index.php/de/anzeigen/paragleiten" target="_blank">Airscout365</a></li>
+            <li><a href="https://justacro.com/market" target="_blank">Just Acro Market</a></li>
         </ul>
     </div>
 
@@ -187,15 +162,16 @@
     <div class="weather-section">
         <h2>Other Resources</h2>
          <ul>
-            <li><a href="https://www.foto-webcam.eu/webcam/map/" target="_blank" rel="noopener noreferrer">Foto Webcam Map</a></li>
+            <li><a href="https://www.foto-webcam.eu/webcam/map/" target="_blank">Foto Webcam Map</a></li>
         </ul>
     </div>
 
     <hr>
-    <p><small>Page last updated: <time datetime="2025-04-10">April 10, 2025</time></small></p>
+    <p><small>Page last updated: [10.04.2025]</small></p>
 
-    <!-- REVISED JavaScript for Independent Tabs -->
-    <script src="script.js"></script> <!-- Reference external JS -->
+    <!-- Link to the external JavaScript file -->
+    <!-- Use defer to ensure HTML is parsed before script runs -->
+    <script src="script.js" defer></script>
 
 </body>
 </html>

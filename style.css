@@ -61,8 +61,6 @@ li { margin-bottom: 8px; }
 .tab-button.active { background-color: #fff; border-color: #ccc #ccc transparent #ccc; font-weight: bold; z-index: 1; }
 .tab-content { display: none; padding-top: 15px; border-top: 1px solid transparent; }
 .tab-content.active { display: block; }
-/* Ensure elements marked as hidden are visually hidden */
-[hidden] { display: none !important; }
 
 /* Vertical Iframe Stack */
 .iframe-stack {
@@ -74,6 +72,56 @@ li { margin-bottom: 8px; }
 .iframe-stack iframe:first-child { flex-grow: 3; } /* More space for top iframe */
 .iframe-stack iframe:last-child { flex-grow: 2; }  /* Less space for bottom iframe */
 
+        /* Styling for Live Station Data Section */
+        .live-station-data {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            margin-bottom: 15px; /* Space before hr/grid */
+        }
+        .live-station-data h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1em;
+            text-align: center;
+        }
+        /* MODIFIED: Use Flexbox for alignment */
+        .station-entry {
+            display: flex;
+            align-items: baseline; /* Align text along the bottom */
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            flex-wrap: wrap; /* Allow wrapping on very small screens if needed */
+        }
+                /* MODIFIED Rule */
+        .station-entry strong {
+            flex-shrink: 0;
+            margin-right: 0.75em;
+            display: inline-block; /* Needed for min-width to work reliably */
+            min-width: 100px;     /* ADDED: Adjust value as needed */
+            text-align: left;     /* Ensure text aligns left within the width */
+        }
+        /* NEW: Style for the data wrapper */
+        .station-data-wrapper {
+             /* Takes up remaining space but allows natural flow */
+             flex-basis: 0;
+             flex-grow: 1;
+             min-width: 150px; /* Prevent excessive wrapping if possible */
+        }
+        /* MODIFIED: Style wind data */
+        .wind-data {
+             font-weight: bold;
+             /* No specific flex properties needed */
+         }
+        /* MODIFIED: Style time data */
+        .time-data {
+            font-style: italic;
+            color: #555;
+            font-size: 0.9em;
+            margin-left: 0.5em; /* Space between wind and time */
+            white-space: nowrap; /* Try to keep time on one line */
+        }
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
@@ -88,7 +136,6 @@ li { margin-bottom: 8px; }
     .grid-item-container img { max-width: 100%; }
     .grid-item-container iframe[src*="windy.com"] { width: 100%; height: auto; aspect-ratio: 1/1; }
     .grid-item-container iframe[src*="feratel.com"] { width: 100%; height: auto; aspect-ratio: 16/9; }
-    /* Holfuy - Exclude stacked */
     .grid-item-container iframe[src*="holfuy.com"]:not(.iframe-stack iframe) { width: 100%; height: auto; aspect-ratio: 58 / 25; }
     .grid-item-container .crop-box { width: 100%; height: auto; aspect-ratio: 3/2; background-position: 0 0; }
 
@@ -97,13 +144,5 @@ li { margin-bottom: 8px; }
     .tab-button { display: inline-block; margin-bottom: -1px; }
 
     /* Stacked iframes on mobile */
-    .iframe-stack {
-        height: auto; /* Override the default height: 100% */
-    }
-    .iframe-stack iframe {
-        height: auto; /* Allow height to be determined by aspect ratio */
-        aspect-ratio: 58 / 25; /* Give stacked Holfuy iframes an aspect ratio on mobile */
-        flex-grow: 1; /* Allow flex items to grow if needed, though aspect-ratio should dominate */
-        flex-basis: auto; /* Let basis be determined by content/aspect-ratio */
-    }
+    .iframe-stack iframe { aspect-ratio: unset; }
 } /* End of @media query */
