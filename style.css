@@ -19,10 +19,8 @@ li { margin-bottom: 8px; }
     margin-top: 15px;
 }
 
-/* Add space under the Patscherkofel webcam only */
-  #innsbruck-cam .grid-item-container:last-child {
-    margin-bottom: 30px; /* adjust space as needed */
-  }
+/* extra space below the Innsbruck grid */
+#innsbruck-cam { padding-bottom: 30px; }
 
 /* Modular Height Helper Classes (Desktop) */
 .h-standard { height: calc(var(--unit-height) * 2 + var(--grid-gap)); }
