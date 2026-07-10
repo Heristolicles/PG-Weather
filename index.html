@@ -26,47 +26,52 @@
     <!-- Weather data section -->
     <div class="weather-section">
         <h2>Weather data</h2>
-                 <!-- Live Station Data Section -->
-                 <div class="live-station-data">
-                    <h4>Live Station Data (LWD Tirol)</h4>
-                     <!-- **** Item 7: Burnair Map **** -->
-                    <div class="grid-item-container h-standard"> <h4 class="item-title">Burnair Map</h4> <div class="item-content"> <iframe src="https://map.burnair.cloud/?layers=lz%2Cto%2Clp%2Cpz%2Cfp%2Cna%2Cle%2Cca%2Cvw%2Ccc%2Ctt%2Cpt%2Ctl%2Ctp%2Cpp%2Cmp%2Cwla%2Cmw%2Cmf%2Cmrr%2Ctodhv%2Clzp&visibility=off%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Con%2Con%2Con%2Coff%2Coff#11/47.2066/11.4069" frameborder="0" title="Burnair Map"></iframe> </div> </div>
-                    <!-- Placeholder for Hafelekar -->
-                    <div class="station-entry">
-                        <strong>Hafelekar:</strong>
-                        <span class="station-data-wrapper">
-                            <span class="wind-data" id="station-hafelekar-wind">Loading...</span>
-                            (<span class="time-data" id="station-hafelekar-time">--:--</span>)
-                        </span>
-                    </div>
+                 <!-- Live Station Data Section + Burnair Map -->
+                 <div class="weather-data-top">
+                     <div class="live-station-data">
+                        <h4>Live Station Data (LWD Tirol)</h4>
+                        <!-- Placeholder for Hafelekar -->
+                        <div class="station-entry">
+                            <strong>Hafelekar:</strong>
+                            <span class="station-data-wrapper">
+                                <span class="wind-data" id="station-hafelekar-wind">Loading...</span>
+                                (<span class="time-data" id="station-hafelekar-time">--:--</span>)
+                            </span>
+                        </div>
 
-                    <!-- Placeholder for Grubigstein Windstation -->
-                    <div class="station-entry">
-                        <strong>Grubigstein:</strong>
-                         <span class="station-data-wrapper">
-                            <span class="wind-data" id="station-grubigstein-windstation-wind">Loading...</span>
-                            (<span class="time-data" id="station-grubigstein-windstation-time">--:--</span>)
-                         </span>
-                    </div>
+                        <!-- Placeholder for Grubigstein Windstation -->
+                        <div class="station-entry">
+                            <strong>Grubigstein:</strong>
+                             <span class="station-data-wrapper">
+                                <span class="wind-data" id="station-grubigstein-windstation-wind">Loading...</span>
+                                (<span class="time-data" id="station-grubigstein-windstation-time">--:--</span>)
+                             </span>
+                        </div>
 
-                     <!-- Placeholder for Rosshütte Windstation -->
-                    <div class="station-entry">
-                        <strong>Rosshütte:</strong>
-                         <span class="station-data-wrapper">
-                            <span class="wind-data" id="station-rossh-tte-windstation-wind">Loading...</span>
-                            (<span class="time-data" id="station-rossh-tte-windstation-time">--:--</span>)
-                         </span>
-                    </div>
+                         <!-- Placeholder for Rosshütte Windstation -->
+                        <div class="station-entry">
+                            <strong>Rosshütte:</strong>
+                             <span class="station-data-wrapper">
+                                <span class="wind-data" id="station-rossh-tte-windstation-wind">Loading...</span>
+                                (<span class="time-data" id="station-rossh-tte-windstation-time">--:--</span>)
+                             </span>
+                        </div>
 
-                    <!-- Placeholder for Elferspitze Windstation -->
-                    <div class="station-entry">
-                        <strong>Elferspitze:</strong>
-                         <span class="station-data-wrapper">
-                            <span class="wind-data" id="station-elferspitze-windstation-wind">Loading...</span>
-                            (<span class="time-data" id="station-elferspitze-windstation-time">--:--</span>)
-                         </span>
-                    </div>
-                    <!-- Add more station placeholders here if needed -->
+                        <!-- Placeholder for Elferspitze Windstation -->
+                        <div class="station-entry">
+                            <strong>Elferspitze:</strong>
+                             <span class="station-data-wrapper">
+                                <span class="wind-data" id="station-elferspitze-windstation-wind">Loading...</span>
+                                (<span class="time-data" id="station-elferspitze-windstation-time">--:--</span>)
+                             </span>
+                        </div>
+                        <!-- Add more station placeholders here if needed -->
+                     </div>
+                     <!-- Burnair Map -->
+                     <div class="burnair-map-panel">
+                         <h4 class="item-title">Burnair Map</h4>
+                         <div class="item-content"> <iframe src="https://map.burnair.cloud/?layers=lz%2Cto%2Clp%2Cpz%2Cfp%2Cna%2Cle%2Cca%2Cvw%2Ccc%2Ctt%2Cpt%2Ctl%2Ctp%2Cpp%2Cmp%2Cwla%2Cmw%2Cmf%2Cmrr%2Ctodhv%2Clzp&visibility=off%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Coff%2Con%2Con%2Con%2Coff%2Coff#11/47.2066/11.4069" frameborder="0" title="Burnair Map"></iframe> </div>
+                     </div>
                  </div>
                  <hr> <!-- Separator -->
                 <div class="data-grid">
