@@ -57,6 +57,38 @@ li { margin-bottom: 8px; }
     background-image: var(--crop-url); background-position: 0 var(--crop-offset-y); width: 100%; height: 100%; background-repeat: no-repeat; background-size: 100% auto; display: block;
 }
 
+        /* Live Station Data + Burnair Map side-by-side row */
+        .weather-data-top {
+            display: flex;
+            align-items: stretch;
+            gap: 20px;
+            margin-bottom: 15px; /* Space before hr/grid */
+        }
+        .weather-data-top .live-station-data {
+            flex: 1 1 0;
+            margin-bottom: 0;
+        }
+
+        /* Burnair Map panel */
+        .burnair-map-panel {
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+            overflow: hidden;
+        }
+        .burnair-map-panel .item-title {
+            margin: 0; padding: 6px 10px; font-size: 0.85em; font-weight: bold; text-align: center; background-color: #e9e9e9; border-bottom: 1px solid #ccc; flex-shrink: 0; color: #333;
+        }
+        .burnair-map-panel .item-content {
+            flex-grow: 1; aspect-ratio: 16 / 9; min-height: 0;
+        }
+        .burnair-map-panel iframe {
+            display: block; width: 100%; height: 100%; border: none;
+        }
+
         /* Styling for Live Station Data Section */
         .live-station-data {
             padding: 10px;
@@ -163,6 +195,8 @@ li { margin-bottom: 8px; }
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
+    .weather-data-top { flex-direction: column; }
+
     .data-grid { grid-template-columns: 1fr; }
     .data-grid .h-tall { grid-row: auto; }
 
