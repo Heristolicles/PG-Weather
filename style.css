@@ -196,6 +196,8 @@ li { margin-bottom: 8px; }
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .weather-data-top { flex-direction: column; }
+    .weather-data-top .live-station-data,
+    .weather-data-top .burnair-map-panel { flex: none; width: 100%; }
 
     .data-grid { grid-template-columns: 1fr; }
     .data-grid .h-tall { grid-row: auto; }
