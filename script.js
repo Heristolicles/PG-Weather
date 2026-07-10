@@ -1,36 +1,3 @@
-// --- JavaScript for Tabs ---
-const tabButtonContainers = document.querySelectorAll('.tab-buttons');
-
-tabButtonContainers.forEach(container => {
-    container.addEventListener('click', (event) => {
-        // Check if the clicked element is actually a button inside the container
-        if (event.target.classList.contains('tab-button')) {
-            const clickedButton = event.target;
-            const targetTabId = clickedButton.dataset.tab; // e.g., "innsbruck-cam"
-
-            // Find the closest parent weather-section to scope the changes
-            const parentSection = clickedButton.closest('.weather-section');
-            if (!parentSection) return; // Should not happen, but safe check
-
-            // --- Within the specific parent section ---
-            // Deactivate all buttons in this section
-            parentSection.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-            // Deactivate all content panels in this section
-            parentSection.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-            // Activate the clicked button
-            clickedButton.classList.add('active');
-
-            // Activate the corresponding content panel within this section
-            const targetContent = parentSection.querySelector('#' + targetTabId);
-            if (targetContent) {
-                targetContent.classList.add('active');
-            }
-        }
-    });
-});
-
-
 // --- JavaScript for fetching and displaying hourly station data ---
 const JSON_DATA_URL = 'https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson';
 
